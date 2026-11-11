@@ -1,30 +1,13 @@
+//import editProfileInfo from "./utils/editProfileInfo.js";
+import { initialCards } from "./utils/constants.js";
+import * as editProfileInfo from "./utils/editProfileInfo.js";
+import * as addCards from "./utils/addCards.js";
+import * as previewCardImage from "./utils/previewCardImage.js";
 import { setEventListeners, resetValidation } from "./validate.js";
-const initialCards = [
-    {
-        name: "Valle de Yosemite",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    },
-    {
-        name: "Lago Louise",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    },
-    {
-        name: "Montañas Calvas",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
-    },
-    {
-        name: "Latemar",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
-    },
-    {
-        name: "Parque Nacional de la Vanoise",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
-    },
-    {
-        name: "Lago di Braies",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
-    },
-];
+//Avoiding Namespace (like c++) for first-phase integration
+Object.assign(window, editProfileInfo);
+Object.assign(window, addCards);
+Object.assign(window, previewCardImage);
 // Common functions to handle modal/popup
 function handleClickOutsideModal(event) {
     if (!event.target.matches(".popup"))
@@ -51,15 +34,6 @@ function closeModal(modal) {
     document.removeEventListener("keydown", handleEscClose);
     resetValidation(modal);
 }
-// Edit PopUp
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
-const profileEditButton = document.querySelector(".profile__edit-button");
-const editPopup = document.querySelector("#edit-popup");
-const closeButtonEditPopup = editPopup.querySelector(".popup__close");
-const formEditPopup = editPopup.querySelector("#edit-profile-form");
-const nameInputFormEditPopup = formEditPopup.querySelector(".popup__input_type_name");
-const descriptionInputFormEditPopup = formEditPopup.querySelector(".popup__input_type_description");
 function fillProfileForm() {
     nameInputFormEditPopup.value = profileTitle.textContent;
     descriptionInputFormEditPopup.value = profileDescription.textContent;
@@ -77,13 +51,6 @@ function handleProfileFormSubmit(evt) {
 profileEditButton.addEventListener("click", handleOpenEditModal);
 closeButtonEditPopup.addEventListener("click", () => closeModal(editPopup));
 formEditPopup.addEventListener("submit", handleProfileFormSubmit);
-// Generate Cards Dinamically
-const cardTemplate = document.querySelector("#card-template");
-const cardsList = document.querySelector(".cards__list");
-const cardImagePopup = document.querySelector("#image-popup");
-const closeButtonImagePopup = cardImagePopup.querySelector(".popup__close");
-const imageImagePopup = cardImagePopup.querySelector(".popup__image");
-const captionImagePopup = cardImagePopup.querySelector(".popup__caption");
 initialCards.forEach((card) => {
     renderCard(card.name, card.link, cardsList);
 });
@@ -116,13 +83,6 @@ function getCardElement(name = "Sin título", link = "./images/placeholder.jpg",
 closeButtonImagePopup.addEventListener("click", () => {
     closeModal(cardImagePopup);
 });
-// Add new cards' pop-up
-const profileAddButton = document.querySelector(".profile__add-button");
-const newCardPopup = document.querySelector("#new-card-popup");
-const closeButtonNewCardPopup = newCardPopup.querySelector(".popup__close");
-const formNewCardPopup = newCardPopup.querySelector("#new-card-form");
-const nameInputFormNewCardPopup = formNewCardPopup.querySelector(".popup__input_type_card-name");
-const urlInputFormNewCardPopup = formNewCardPopup.querySelector(".popup__input_type_url");
 profileAddButton.addEventListener("click", handleOpenNewCardModal); //
 function handleOpenNewCardModal() {
     openModal(newCardPopup);
