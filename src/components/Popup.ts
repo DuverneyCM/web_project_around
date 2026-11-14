@@ -27,6 +27,14 @@ export abstract class Popup {
         this.modal.classList.remove("popup_is-opened");
     }
     /**
+     * used to remove all event listeners, linked to their handlers
+     */
+    public unsetEventListeners() {
+        document.removeEventListener("keydown", this.handleEscClose);
+        this.closeButton.removeEventListener("click", this.handleClickButtonClose );
+        this.modal.removeEventListener("click", this.handleClickOutsideClose );
+    }
+    /**
      * used to add/define all event listeners, linked to their handlers
      */
     public setEventListeners() {

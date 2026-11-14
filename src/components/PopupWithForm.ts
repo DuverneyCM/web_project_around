@@ -15,15 +15,16 @@ export class PopupWithForm extends Popup {
     this.form = this.modal.querySelector(".popup__form") as HTMLFormElement;
     this.inputList = this.form.querySelectorAll(".popup__input") as NodeListOf<HTMLInputElement>;
     this.sendForm = handleSendForm;
-    this.setEventListeners();
   }
   public override open(formValues?: FormValues) {
     if (formValues) this.setInputValues(formValues);
     super.open();
+    this.setEventListeners();
   } 
   public override close() {
     this.form.reset();
     super.close();
+    this.unsetEventListeners();
   }
   private getInputValues() {
     const formValues: FormValues = {};
@@ -37,6 +38,10 @@ export class PopupWithForm extends Popup {
       input.value = formValues[input.name] ?? "";
     });
   }
+  public override unsetEventListeners() {
+    super.unsetEventListeners();
+    this.form.removeEventListener("submit", this.handleSubmit );
+  }
   public override setEventListeners() {
     super.setEventListeners();
     this.form.addEventListener("submit", this.handleSubmit );
@@ -46,12 +51,12 @@ export class PopupWithForm extends Popup {
     this.sendForm( this.getInputValues() );
     this.close();
   }
+  private handleInput = (event: InputEvent):void => { 
+    const inputTarget = event.target as HTMLInputElement;
+    console.log(inputTarget.value)
+  }
 
-
-  /*
-  public open() {} //override: añadir una imagen al popup y el correspondiente atributo src junto con una leyenda
-  public close() {} //override: reiniciar el formulario una vez se cierre el popup.
-  public setEventListeners() {} //override: agregar al formulario un controlador de eventos submit (SubmitEvent).
-  private getInputValues() {} //recopila datos de todos los campos de entrada y devuelve un objeto tipado
-  */
+  public getForm():HTMLFormElement {
+    return this.form;
+  }
 }

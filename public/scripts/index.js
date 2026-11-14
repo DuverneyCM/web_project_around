@@ -1,5 +1,5 @@
 //import editProfileInfo from "./utils/editProfileInfo.js";
-import { initialCards } from "./utils/constants.js";
+import { initialCards, confObject } from "./utils/constants.js";
 import * as editProfileInfo from "./utils/editProfileInfo.js";
 import * as addCards from "./utils/addCards.js";
 import * as previewCardImage from "./utils/previewCardImage.js";
@@ -21,7 +21,7 @@ const modalEditProfile = new PopupWithForm({
         profileInfo.setUserInfo(formData);
     },
 });
-//new FormValidator("setupObject", modalEditProfile.getForm());
+modalEditProfile.validator = new FormValidator(confObject, modalEditProfile.getForm());
 const modalAddCards = new PopupWithForm({
     selector: "#new-card-popup",
     handleSendForm: (formData) => {
@@ -30,7 +30,7 @@ const modalAddCards = new PopupWithForm({
         renderCard(name, url, cardsList); // cardsList= ...".cards__list"
     },
 });
-new FormValidator("setupObject", modalAddCards.getForm());
+modalAddCards.validator = new FormValidator(confObject, modalAddCards.getForm());
 const modalPreviewCardImage = new PopupWithImage({
     selector: "#image-popup",
 });
