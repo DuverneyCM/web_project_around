@@ -1,12 +1,12 @@
-import { initialCards, confObject, profileEditButton, profileAddButton, } from "./utils/constants.js";
+import { initialCards, confObject } from "./utils/constants.js";
+import { profileEditButton, profileAddButton } from "./utils/constants.js";
 import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { FormValidator } from "./components/FormValidator.js";
 import { UserInfo } from "./components/UserInfo.js";
 import { Card } from "./components/Card.js";
 import { Section } from "./components/Section.js";
-//create profileInfo controller
-const profileInfo = new UserInfo([".profile__title", ".profile__description"]);
+import * as selector from "./utils/selectors.js";
 //create the cards renderer
 const handleCardClick = (image) => {
     modalPreviewCardImage.open(image.name, image.link, image.alt);
@@ -14,28 +14,30 @@ const handleCardClick = (image) => {
 const cardRenderer = new Section({
     items: initialCards,
     renderer: (cardData) => {
-        return new Card(cardData, "#card-template", handleCardClick).getCard();
+        return new Card(cardData, selector.cardTemplate, handleCardClick).getCard();
     },
 }, ".cards__list");
+//create profileInfo controller
+const profileInfo = new UserInfo([selector.profileTitle, selector.profileDescription]);
 //Create Modals
 const modalEditProfile = new PopupWithForm({
-    selector: "#edit-popup",
+    selector: selector.popupEditProfile,
     handleSendForm: (formData) => {
         profileInfo.setUserInfo(formData);
     },
 });
-modalEditProfile.validator = new FormValidator(confObject, modalEditProfile.getForm());
+new FormValidator(confObject, modalEditProfile.getForm());
 const modalAddCards = new PopupWithForm({
-    selector: "#new-card-popup",
+    selector: selector.popupAddCards,
     handleSendForm: (formData) => {
-        cardRenderer.addItem(new Card(formData, "#card-template", handleCardClick).getCard());
+        cardRenderer.addItem(new Card(formData, selector.cardTemplate, handleCardClick).getCard());
     },
 });
-modalAddCards.validator = new FormValidator(confObject, modalAddCards.getForm());
+new FormValidator(confObject, modalAddCards.getForm());
 const modalPreviewCardImage = new PopupWithImage({
-    selector: "#image-popup",
+    selector: selector.popupPreviewCardImage,
 });
-//Open modals
+//Buttons' events that open modals
 profileEditButton.addEventListener("click", () => {
     modalEditProfile.open(profileInfo.getUserInfo());
 });

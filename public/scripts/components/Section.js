@@ -1,7 +1,6 @@
 /**
- * presentar una lista de elementos en una página
- * La clase Section no tiene marcado. Recibe el marcado a través de la función de callback y lo inserta en el contenedor.
- * @template @public @class @remarks @see
+ * @class Used to render items in the page. addItem() to render an HTMLElement object, whereas renderer() to read an array with the data/instructions, and for each item, call external functions that return the item to render with addItem()
+ * @public
  */
 export class Section {
     initialCardDataList;

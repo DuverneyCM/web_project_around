@@ -1,10 +1,6 @@
 /**
- * Produce una tarjeta con texto y un enlace a la imagen:
- * @template @public @class @remarks @see
- * Toma los datos de la tarjeta (define una interfaz para estos datos) y un selector de elemento de plantilla como parámetros en el constructor.
- * Añade un tercer parámetro al constructor: la función handleCardClick(). Cuando el usuario haga clic en la tarjeta, esta función abrirá el popup con una imagen (acoplamiento débil).
- * Dispone de métodos privados tipados para trabajar con el marcado y añadir detectores de eventos.
- * Tiene un método público que devuelve un elemento card (HTMLElement) completamente funcional
+ * @class used to render the cards. Add buttons to like and delete each card, and uses a callback to manage click events on the card image
+ * @public
  */
 export class Card {
     cardData;
@@ -17,7 +13,6 @@ export class Card {
         this.handleCardImageClick = handleCardClick;
         this.cardItem = this.createCard();
     }
-    // Dispone de métodos privados tipados para trabajar con el marcado y añadir detectores de eventos.
     createCard() {
         if (!this.cardTemplate)
             throw new Error("Card Template not found");
@@ -39,7 +34,6 @@ export class Card {
         cardImage.addEventListener("click", () => { this.handleCardImageClick(this.cardData); });
         return cardClone;
     }
-    // Tiene un método público que devuelve un elemento card (HTMLElement) completamente funcional.
     getCard() {
         return this.cardItem;
     }

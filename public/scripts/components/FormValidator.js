@@ -1,8 +1,6 @@
-import { confObject } from "../utils/constants.js";
 /**
- * validar los campos del formulario
- * asegurar que los elementos del DOM se manejan correctamente
- * @template @public @class @remarks @see
+ * @class used to validate form inputs. popup is optional, so can be used to validate forms without popup
+ * @public
  */
 export class FormValidator {
     objSelectors;
@@ -51,8 +49,6 @@ export class FormValidator {
             errorElement.classList.add(this.objSelectors["error_isVisible"]);
             errorElement.textContent = errorMessage;
         }
-        else
-            console.log("no found errorElement");
     }
     hideInputError(element) {
         const errorElement = document.querySelector(`#${element.id}-error`);
@@ -61,8 +57,6 @@ export class FormValidator {
             errorElement.classList.remove(this.objSelectors["error_isVisible"]);
             errorElement.textContent = "";
         }
-        else
-            console.log("no found errorElement");
     }
     toggleSubmitButtonState() {
         const submitButton = this.form.querySelector(this.objSelectors.submit);
@@ -74,10 +68,10 @@ export class FormValidator {
         if (!this.popup)
             return;
         const isOpen = this.popup.classList.contains(this.objSelectors["popup_isOpen"]);
-        if (isOpen) { // popup abierto
+        if (isOpen) {
             this.toggleSubmitButtonState();
         }
-        else { // popup cerrado
+        else {
             this.resetValidation();
         }
     };

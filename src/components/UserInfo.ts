@@ -1,4 +1,4 @@
-import type { selectorPopup, callbackPopupWithForm, FormValues } from "../types/types.js";
+import type { FormValues } from "../types/types.js";
 
 export class UserInfo {
   constructor (private selectors: string[]) {}

@@ -1,12 +1,8 @@
 import type { FormValues, callbackCardImageClick } from "../types/types.js";
 
 /**
- * Produce una tarjeta con texto y un enlace a la imagen:
- * @template @public @class @remarks @see
- * Toma los datos de la tarjeta (define una interfaz para estos datos) y un selector de elemento de plantilla como parámetros en el constructor.
- * Añade un tercer parámetro al constructor: la función handleCardClick(). Cuando el usuario haga clic en la tarjeta, esta función abrirá el popup con una imagen (acoplamiento débil).
- * Dispone de métodos privados tipados para trabajar con el marcado y añadir detectores de eventos.
- * Tiene un método público que devuelve un elemento card (HTMLElement) completamente funcional
+ * @class used to render the cards. Add buttons to like and delete each card, and uses a callback to manage click events on the card image
+ * @public
  */
 export class Card {
   private cardData:FormValues;
@@ -26,7 +22,6 @@ export class Card {
     
   }
 
-  // Dispone de métodos privados tipados para trabajar con el marcado y añadir detectores de eventos.
   private createCard ():HTMLElement {
     if (!this.cardTemplate) throw new Error("Card Template not found");
     const cardClone = this.cardTemplate.content.querySelector(".card")?.cloneNode(true) as HTMLElement;
@@ -50,7 +45,7 @@ export class Card {
     
     return cardClone;
   }
-  // Tiene un método público que devuelve un elemento card (HTMLElement) completamente funcional.
+
   public getCard():HTMLElement {
     return this.cardItem;
   };

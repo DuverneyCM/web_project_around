@@ -1,13 +1,17 @@
 import { Popup } from "./Popup.js";
 /**
- * presentar una lista de elementos en una página
- * La clase Section no tiene marcado. Recibe el marcado a través de la función de callback y lo inserta en el contenedor.
- * @template @public @class @remarks @see
+ * @class used to represent modals that contain forms, which could requiere validate and submit data
+ * @public
  */
 export class PopupWithForm extends Popup {
     form;
     inputList;
     sendForm;
+    /**
+     * Create a new instance of PopupWithForm to manage modals with forms
+     * @param selector - only accept a selector id (e.g. "#selector") listed in selectorPopup type
+     * @param handleSendForm - callback function used to process collected form data when submit
+     */
     constructor({ selector, handleSendForm }) {
         super(selector);
         this.form = this.modal.querySelector(".popup__form");
@@ -49,10 +53,6 @@ export class PopupWithForm extends Popup {
         event.preventDefault();
         this.sendForm(this.getInputValues());
         this.close();
-    };
-    handleInput = (event) => {
-        const inputTarget = event.target;
-        console.log(inputTarget.value);
     };
     getForm() {
         return this.form;

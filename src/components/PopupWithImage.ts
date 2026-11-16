@@ -2,7 +2,7 @@ import { Popup } from "./Popup.js";
 import type { selectorPopup } from "../types/types.js";
 
 /**
- * @class used to represent modals, allowing to open and close them
+ * @class used to represent modals used to preview card images
  * @public
  */
 export class PopupWithImage extends Popup { 
