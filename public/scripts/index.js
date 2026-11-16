@@ -1,19 +1,10 @@
-import editProfileInfo from "./utils/editProfileInfo.js";
-import { initialCards, confObject } from "./utils/constants.js";
-//import * as editProfileInfo from "./utils/editProfileInfo.js";
-import * as addCards from "./utils/addCards.js";
-import * as previewCardImage from "./utils/previewCardImage.js";
-//import { setEventListeners, resetValidation } from "./validate.js";
+import { initialCards, confObject, profileEditButton, profileAddButton, } from "./utils/constants.js";
 import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { FormValidator } from "./components/FormValidator.js";
 import { UserInfo } from "./components/UserInfo.js";
 import { Card } from "./components/Card.js";
 import { Section } from "./components/Section.js";
-//Avoiding Namespace (like c++) for first-phase integration
-Object.assign(window, editProfileInfo);
-Object.assign(window, addCards);
-Object.assign(window, previewCardImage);
 //create profileInfo controller
 const profileInfo = new UserInfo([".profile__title", ".profile__description"]);
 //create the cards renderer

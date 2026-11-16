@@ -34,3 +34,5 @@ export const confObject = {
     submit: ".popup__button", //El selector del botón de envío (submit).
     submit_disabled: ".popup__button:disabled", //La clase CSS que desactiva el botón. //No la uso en este code
 };
+export const profileEditButton = document.querySelector(".profile__edit-button");
+export const profileAddButton = document.querySelector(".profile__add-button");
