@@ -19,12 +19,14 @@ export abstract class Popup {
      */
     public open() {
         this.modal.classList.add("popup_is-opened");
+        this.setEventListeners();
     }
     /**
      * used to close modal
      */
     public close() {
         this.modal.classList.remove("popup_is-opened");
+        this.unsetEventListeners();
     }
     /**
      * used to remove all event listeners, linked to their handlers

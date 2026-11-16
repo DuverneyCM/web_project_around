@@ -22,12 +22,10 @@ export class PopupWithForm extends Popup {
         if (formValues)
             this.setInputValues(formValues);
         super.open();
-        this.setEventListeners();
     }
     close() {
         this.form.reset();
         super.close();
-        this.unsetEventListeners();
     }
     getInputValues() {
         const formValues = {};

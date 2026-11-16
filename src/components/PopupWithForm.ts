@@ -23,12 +23,10 @@ export class PopupWithForm extends Popup {
   public override open(formValues?: FormValues) {
     if (formValues) this.setInputValues(formValues);
     super.open();
-    this.setEventListeners();
   } 
   public override close() {
     this.form.reset();
     super.close();
-    this.unsetEventListeners();
   }
   private getInputValues() {
     const formValues: FormValues = {};
