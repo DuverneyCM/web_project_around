@@ -5,11 +5,13 @@
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![POO](https://img.shields.io/badge/POO-3178C6?style=for-the-badge)
 ![BEM](https://img.shields.io/badge/Metodología_BEM-000000?style=for-the-badge&logo=bem&logoColor=white)
 
 ## 📌 Descripción del Proyecto
 
-**Around The U.S.** es una aplicación web interactiva y totalmente responsiva diseñada para compartir y explorar fotografías de lugares emblemáticos de Estados Unidos. Este proyecto forma parte del bootcamp de desarrollo web de **TripleTen**, enfocado en consolidar buenas prácticas de maquetación, diseño adaptable y manipulación del DOM con JavaScript.
+**Around The U.S.** es una aplicación web interactiva y totalmente responsiva diseñada para compartir y explorar fotografías de lugares emblemáticos de Estados Unidos. Este proyecto forma parte del bootcamp de desarrollo web de **TripleTen**. La sección anterior estuvo enfocada en consolidar buenas prácticas de maquetación, diseño adaptable y manipulación del DOM con JavaScript. Esta última actualización se enfocó en refactorización, integrando en el proceso **TypeScript** y diseño basado en **POO** usando acoplamiento suave, destacando el uso de **Observers** para capturar cambios en el DOM generados por otros objetos.
 
 La página permite a los usuarios personalizar su perfil (editar nombre e información personal), agregar nuevas tarjetas con imágenes y títulos de lugares, dar "me gusta" a las publicaciones y eliminar tarjetas existentes mediante ventanas modales interactivas. También permite ver las imagenes de las tarjetas ampliadas tras dar clic en ellas.
 
@@ -22,6 +24,7 @@ Por ahora, no hay backend, por lo que los cambios realizados por el usuario no s
 - **Diseño Responsivo (Mobile-First):** Adaptado de manera fluida para dispositivos móviles, tabletas y ordenadores de escritorio.
 - **Ventanas Modales Interactuantes:** Formularios emergentes para editar el perfil de usuario y añadir nuevas tarjetas fotográficas con transiciones suaves.
 - **Interactividad con JavaScript:** Manipulación dinámica del DOM para usar agregar, eliminar y dar "me gusta" a tarjetas de forma eficiente, y editar información de perfil.
+- **TypeScript y POO:** Uso de tipado y diseño basado en clases para mejorar la mantenibilidad y escalabilidad del código.
 - **Estructura CSS Modular:** Uso de la metodología **BEM (Block, Element, Modifier)** y arquitectura de archivos organizada.
 - **Flexbox y Grid CSS:** Diseños modernos para la galería y distribución de elementos.
 
@@ -31,7 +34,9 @@ Por ahora, no hay backend, por lo que los cambios realizados por el usuario no s
 
 - **HTML5:** Marcador semántico y estructurado. Las tarjetas se generan a partir de templates.
 - **CSS3:** Estilos avanzados, Flexbox, CSS Grid y Media Queries.
-- **JavaScript (Vanilla):** Lógica del cliente, manejo de eventos y manipulación del DOM.
+- **JavaScript:** Lógica del cliente, manejo de eventos y manipulación del DOM.
+- **TypeScript:** Tipado estático para detectar errores y mejorar la claridad y mantenibilidad del código.
+- **POO:** Organiza el código en objetos y clases para reutilizar y mantener mejor la lógica.
 - **Metodología BEM:** Para una nomenclatura limpia y mantenible en CSS.
 - **Git y GitHub:** Control de versiones y despliegue del proyecto.
 
@@ -48,7 +53,7 @@ Por ahora, no hay backend, por lo que los cambios realizados por el usuario no s
 ## 🔗 Enlaces del Proyecto
 
 - **Repositorio en GitHub:** [DuverneyCM/web_project_around_es](https://github.com/DuverneyCM/web_project_around_es)
-- **Página en Vivo ( [GitHub Pages](https://duverneycm.github.io/web_project_around_es/index.html) ):**
+- **Página en Vivo ( [GitHub Pages](https://duverneycm.github.io/web_project_around_es/public/index.html) ):**
 
 ---
 
