@@ -52,8 +52,8 @@ Por ahora, no hay backend, por lo que los cambios realizados por el usuario no s
 
 ## 🔗 Enlaces del Proyecto
 
-- **Repositorio en GitHub:** [DuverneyCM/web_project_around_es](https://github.com/DuverneyCM/web_project_around_es)
-- **Página en Vivo ( [GitHub Pages](https://duverneycm.github.io/web_project_around_es/public/index.html) ):**
+- **Repositorio en GitHub:** [DuverneyCM/web_project_around](https://github.com/DuverneyCM/web_project_around)
+- **Página en Vivo ( [GitHub Pages](https://duverneycm.github.io/web_project_around/public/index.html) ):**
 
 ---
 
