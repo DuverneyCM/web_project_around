@@ -6,13 +6,22 @@ import { FormValidator } from "./components/FormValidator.js";
 import { UserInfo } from "./components/UserInfo.js";
 import { Card } from "./components/Card.js";
 import { Section } from "./components/Section.js";
+import { Api } from "./components/Api.js";
 import * as selector from "./utils/selectors.js";
+//create the API controller
+const api = new Api({
+    baseUrl: "https://around-api.es.tripleten-services.com/v1",
+    headers: {
+        authorization: "ec11ff81-b061-43b7-92de-f505e22826c4",
+        "Content-Type": "application/json"
+    }
+});
 //create the cards renderer
 const handleCardClick = (image) => {
     modalPreviewCardImage.open(image.name, image.link, image.alt);
 };
 const cardRenderer = new Section({
-    items: initialCards,
+    items: await api.getInitialCards(),
     renderer: (cardData) => {
         return new Card(cardData, selector.cardTemplate, handleCardClick).getCard();
     },
