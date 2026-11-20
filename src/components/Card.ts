@@ -10,17 +10,20 @@ export class Card {
   private cardItem:HTMLElement;
   private handleCardImageClick:callbackCardImageClick;
   private handleCardDelete:(card:HTMLElement)=>void;
+  private handleCardLike:(cardLikeButton:HTMLButtonElement, cardId: string)=>void;
 
   constructor (
     cardData:cardDataApi, 
     selector:string,
     handleCardClick:callbackCardImageClick,
     handleCardDelete:(card:HTMLElement)=>void,
+    handleCardLike:(cardLikeButton:HTMLButtonElement, cardId: string)=>void,
   ) {
     this.cardData = cardData;
     this.cardTemplate = document.querySelector(selector) as HTMLTemplateElement;
     this.handleCardImageClick = handleCardClick
     this.handleCardDelete = handleCardDelete;
+    this.handleCardLike = handleCardLike;
     this.cardItem = this.createCard();
     
   }
@@ -49,7 +52,7 @@ export class Card {
     }
 
     cardLikeButton.addEventListener("click", () => {
-      cardLikeButton.classList.toggle("card__like-button_is-active");
+      this.handleCardLike(cardLikeButton, cardClone.dataset.id as string);
     });
     cardDeleteButton.addEventListener("click", () => {
       this.handleCardDelete(cardClone);

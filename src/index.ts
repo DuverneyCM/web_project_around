@@ -27,11 +27,21 @@ const handleCardClick = (image:cardDataApi) => {
 const handleCardDelete = (card:HTMLElement) => {
   modalConfirmation.open(card);
 }
+const handleCardLike = (cardLikeButton:HTMLButtonElement, cardId: string) => {
+  api.toggleLikedCard(cardId, cardLikeButton.classList.contains("card__like-button_is-active"))
+  .then((updatedCard) => {
+    if (updatedCard.isLiked) {
+      cardLikeButton.classList.add("card__like-button_is-active");
+    } else {
+      cardLikeButton.classList.remove("card__like-button_is-active");
+    }
+  });
+};
 const cardRenderer = new Section(
   {
     items: await api.getAllCards(),
     renderer: (cardData) => {
-      return new Card(cardData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard();
+      return new Card(cardData, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard();
     },
   },
   ".cards__list",
@@ -61,7 +71,7 @@ const modalAddCards = new PopupWithForm({
       link: formData.link,
     });
     cardRenderer.addItem(
-      new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete).getCard()
+      new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard()
     );
   },
 });

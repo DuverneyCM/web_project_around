@@ -24,10 +24,21 @@ const handleCardClick = (image) => {
 const handleCardDelete = (card) => {
     modalConfirmation.open(card);
 };
+const handleCardLike = (cardLikeButton, cardId) => {
+    api.toggleLikedCard(cardId, cardLikeButton.classList.contains("card__like-button_is-active"))
+        .then((updatedCard) => {
+        if (updatedCard.isLiked) {
+            cardLikeButton.classList.add("card__like-button_is-active");
+        }
+        else {
+            cardLikeButton.classList.remove("card__like-button_is-active");
+        }
+    });
+};
 const cardRenderer = new Section({
     items: await api.getAllCards(),
     renderer: (cardData) => {
-        return new Card(cardData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard();
+        return new Card(cardData, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard();
     },
 }, ".cards__list");
 //create profileInfo controller
@@ -48,7 +59,7 @@ const modalAddCards = new PopupWithForm({
             name: formData.name,
             link: formData.link,
         });
-        cardRenderer.addItem(new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete).getCard());
+        cardRenderer.addItem(new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard());
     },
 });
 new FormValidator(confObject, modalAddCards.getForm());

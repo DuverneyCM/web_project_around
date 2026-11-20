@@ -90,13 +90,19 @@ export class Api {
       return {} as cardDataApi;
     }
   }
+  async toggleLikedCard(cardId: string, isLiked: boolean): Promise<cardDataApi> {
+    try {
+      if (isLiked) {
+        const result:cardDataApi = await this.HTTPRequest(`/cards/${cardId}/likes`, "DELETE");
+        return result;
+      } else {
+        const result:cardDataApi = await this.HTTPRequest(`/cards/${cardId}/likes`, "PUT");
+        return result;
+      } 
+    } catch (err) {
+      console.error(err);
+      return {} as cardDataApi;
+    }
+  }
 
 }
-
-const api = new Api({
-  baseUrl: "[https://around-api.es.tripleten-services.com](https://around-api.es.tripleten-services.com/)/v1",
-  headers: {
-    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
-    "Content-Type": "application/json"
-  }
-});
