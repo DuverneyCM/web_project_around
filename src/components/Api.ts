@@ -27,7 +27,6 @@ export class Api {
     }
     return res.json();
   }
-
   async getAllCards(): Promise<cardDataApi[]> {
     try { 
       const result: cardDataApi[] = await this.HTTPRequest("/cards", "GET");
@@ -37,7 +36,15 @@ export class Api {
       return [];
     }
   }
-
+  async getAllUsersInfo(): Promise<userDataApi[]>{
+    try {
+      const result: userDataApi[] = await this.HTTPRequest("/users", "GET");
+      return result;
+    } catch (err) {
+      console.error(err);
+      return [] as userDataApi[];
+    }
+  }
   async getMyUserInfo(): Promise<userDataApi>{
     try {
       const result: userDataApi = await this.HTTPRequest("/users/me", "GET");
@@ -47,7 +54,7 @@ export class Api {
       return {} as userDataApi;
     }
   }
-  async setUserInfo(data: { name: string; about: string }) {
+  async setMyUserInfo(data: { name: string; about: string }) {
     // ...
   }
   async addCard(data: { name: string; link: string }) {
