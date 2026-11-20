@@ -5,8 +5,36 @@ export class Api {
         this.baseUrl = options.baseUrl;
         this.headers = options.headers;
     }
-    async getUserInfo() {
-        // ...
+    async HTTPRequest(endpoint, method, body) {
+        const options = { method, headers: this.headers };
+        if (body) {
+            options.body = JSON.stringify(body);
+        }
+        const res = await fetch(`${this.baseUrl}${endpoint}`, options);
+        if (!res.ok) {
+            throw new Error(`Error: ${res.status}`);
+        }
+        return res.json();
+    }
+    async getAllCards() {
+        try {
+            const result = await this.HTTPRequest("/cards", "GET");
+            return result;
+        }
+        catch (err) {
+            console.error(err);
+            return [];
+        }
+    }
+    async getMyUserInfo() {
+        try {
+            const result = await this.HTTPRequest("/users/me", "GET");
+            return result;
+        }
+        catch (err) {
+            console.error(err);
+            return {};
+        }
     }
     async setUserInfo(data) {
         // ...
@@ -16,25 +44,6 @@ export class Api {
     }
     async removeCard(cardId) {
         // ...
-    }
-    async getInitialCards() {
-        try {
-            const res = await fetch(`${this.baseUrl}/cards/`, {
-                headers: {
-                    authorization: this.headers.authorization,
-                    "Content-Type": this.headers["Content-Type"]
-                }
-            });
-            if (!res.ok) {
-                throw new Error(`Error: ${res.status}`);
-            }
-            const result = await res.json();
-            return result;
-        }
-        catch (err) {
-            console.error(err);
-            return [];
-        }
     }
 }
 const api = new Api({

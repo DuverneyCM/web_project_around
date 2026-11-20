@@ -1,4 +1,4 @@
-import type { cardData, cardDataApi } from "../types/types.js";
+import type { cardData, cardDataApi, userDataApi } from "../types/types.js";
 
 export interface apiOptions {
   baseUrl: string;
@@ -15,8 +15,37 @@ export class Api {
     this.baseUrl = options.baseUrl;
     this.headers = options.headers;
   }
-  async getUserInfo() {
-    // ...
+
+  async HTTPRequest(endpoint: string, method: string, body?: any) {
+    const options: RequestInit = { method, headers: this.headers };
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+    const res = await fetch(`${this.baseUrl}${endpoint}`, options);
+    if (!res.ok) {
+      throw new Error(`Error: ${res.status}`);
+    }
+    return res.json();
+  }
+
+  async getAllCards(): Promise<cardDataApi[]> {
+    try { 
+      const result: cardDataApi[] = await this.HTTPRequest("/cards", "GET");
+      return result;
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
+  }
+
+  async getMyUserInfo(): Promise<userDataApi>{
+    try {
+      const result: userDataApi = await this.HTTPRequest("/users/me", "GET");
+      return result;
+    } catch (err) {
+      console.error(err);
+      return {} as userDataApi;
+    }
   }
   async setUserInfo(data: { name: string; about: string }) {
     // ...
@@ -27,27 +56,7 @@ export class Api {
   async removeCard(cardId: string) {
     // ...
   }
-  async getInitialCards(): Promise<cardDataApi[]> {
-    try {
-      const res = await fetch(`${this.baseUrl}/cards/`, {
-        headers: {
-          authorization: this.headers.authorization,
-          "Content-Type": this.headers["Content-Type"]
-        }
-      });
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status}`);
-      } 
-      const result: cardDataApi[] = await res.json();
-      return result;
-    } catch (err) {
-      console.error(err);
-      return [];
-    }
-  }
 
-
-  // otros métodos para trabajar con la API
 }
 
 const api = new Api({

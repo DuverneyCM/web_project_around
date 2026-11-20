@@ -25,13 +25,13 @@ const handleCardDelete = (card) => {
     modalConfirmation.open(card);
 };
 const cardRenderer = new Section({
-    items: await api.getInitialCards(),
+    items: await api.getAllCards(),
     renderer: (cardData) => {
         return new Card(cardData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard();
     },
 }, ".cards__list");
 //create profileInfo controller
-const profileInfo = new UserInfo([selector.profileTitle, selector.profileDescription]);
+const profileInfo = new UserInfo([selector.profileTitle, selector.profileDescription], await api.getMyUserInfo());
 //Create Modals
 const modalEditProfile = new PopupWithForm({
     selector: selector.popupEditProfile,

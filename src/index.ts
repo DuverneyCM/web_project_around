@@ -29,7 +29,7 @@ const handleCardDelete = (card:HTMLElement) => {
 }
 const cardRenderer = new Section(
   {
-    items: await api.getInitialCards(),
+    items: await api.getAllCards(),
     renderer: (cardData) => {
       return new Card(cardData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard();
     },
@@ -38,7 +38,10 @@ const cardRenderer = new Section(
 );
 
 //create profileInfo controller
-const profileInfo = new UserInfo([selector.profileTitle, selector.profileDescription]);
+const profileInfo = new UserInfo(
+  [selector.profileTitle, selector.profileDescription],
+  await api.getMyUserInfo()
+);
 
 //Create Modals
 const modalEditProfile = new PopupWithForm({

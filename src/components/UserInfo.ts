@@ -1,7 +1,11 @@
-import type { FormValues } from "../types/types.js";
+import type { FormValues, userDataApi } from "../types/types.js";
+import { profileImage } from "../utils/selectors.js";
 
 export class UserInfo {
-  constructor (private selectors: string[]) {}
+  constructor (private selectors: string[], private initialData: userDataApi) {
+    this.setUserInfo({ title: initialData.name, description: initialData.about });
+    this.setProfileAvatar(initialData.avatar);
+  }
 
   public getUserInfo():FormValues {
     const profileInfo:FormValues = {};
@@ -19,5 +23,9 @@ export class UserInfo {
       const element = document.querySelector(selector) as HTMLElement;
       if (element instanceof HTMLElement) element.textContent = profileInfo[name];
     });
-  } 
+  }
+  public setProfileAvatar(avatarUrl:string):void {
+    const avatarElement = document.querySelector(profileImage) as HTMLImageElement;
+    if (avatarElement instanceof HTMLImageElement) avatarElement.src = avatarUrl;
+  }
 }

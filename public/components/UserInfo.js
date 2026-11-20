@@ -1,7 +1,12 @@
+import { profileImage } from "../utils/selectors.js";
 export class UserInfo {
     selectors;
-    constructor(selectors) {
+    initialData;
+    constructor(selectors, initialData) {
         this.selectors = selectors;
+        this.initialData = initialData;
+        this.setUserInfo({ title: initialData.name, description: initialData.about });
+        this.setProfileAvatar(initialData.avatar);
     }
     getUserInfo() {
         const profileInfo = {};
@@ -20,5 +25,10 @@ export class UserInfo {
             if (element instanceof HTMLElement)
                 element.textContent = profileInfo[name];
         });
+    }
+    setProfileAvatar(avatarUrl) {
+        const avatarElement = document.querySelector(profileImage);
+        if (avatarElement instanceof HTMLImageElement)
+            avatarElement.src = avatarUrl;
     }
 }
