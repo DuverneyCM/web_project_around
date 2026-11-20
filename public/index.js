@@ -35,8 +35,11 @@ const profileInfo = new UserInfo([selector.profileTitle, selector.profileDescrip
 //Create Modals
 const modalEditProfile = new PopupWithForm({
     selector: selector.popupEditProfile,
-    handleSendForm: (formData) => {
-        profileInfo.setUserInfo(formData);
+    handleSendForm: async (formData) => {
+        const userDataUpdated = await api.setMyUserInfo({ name: formData.title, about: formData.description });
+        //console.log("userDataUpdated", userDataUpdated);
+        profileInfo.setUserInfo({ title: userDataUpdated.name, description: userDataUpdated.about });
+        //profileInfo.setUserInfo(formData);
     },
 });
 new FormValidator(confObject, modalEditProfile.getForm());

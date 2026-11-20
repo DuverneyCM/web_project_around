@@ -26,6 +26,16 @@ export class Api {
             return [];
         }
     }
+    async getAllUsersInfo() {
+        try {
+            const result = await this.HTTPRequest("/users", "GET");
+            return result;
+        }
+        catch (err) {
+            console.error(err);
+            return [];
+        }
+    }
     async getMyUserInfo() {
         try {
             const result = await this.HTTPRequest("/users/me", "GET");
@@ -36,8 +46,15 @@ export class Api {
             return {};
         }
     }
-    async setUserInfo(data) {
-        // ...
+    async setMyUserInfo(data) {
+        try {
+            const result = await this.HTTPRequest("/users/me", "PATCH", data);
+            return result;
+        }
+        catch (err) {
+            console.error(err);
+            return {};
+        }
     }
     async addCard(data) {
         // ...

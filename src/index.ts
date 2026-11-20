@@ -8,7 +8,7 @@ import { UserInfo } from "./components/UserInfo.js";
 import { Card } from "./components/Card.js";
 import { Section } from "./components/Section.js";
 import { Api, type apiOptions } from "./components/Api.js";
-import type {FormValues, cardData} from "./types/types.js";
+import type {FormValues, cardData, userDataApi} from "./types/types.js";
 import * as selector from "./utils/selectors.js";
 
 //create the API controller
@@ -46,8 +46,9 @@ const profileInfo = new UserInfo(
 //Create Modals
 const modalEditProfile = new PopupWithForm({
   selector: selector.popupEditProfile,
-  handleSendForm: (formData) => {
-    profileInfo.setUserInfo(formData);
+  handleSendForm: async (formData) => {
+    const userDataUpdated = await api.setMyUserInfo({ name: formData.title, about: formData.description });
+    profileInfo.setUserInfo({ title: userDataUpdated.name, description: userDataUpdated.about });
   },
 });
 new FormValidator(confObject, modalEditProfile.getForm());

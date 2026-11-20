@@ -55,7 +55,13 @@ export class Api {
     }
   }
   async setMyUserInfo(data: { name: string; about: string }) {
-    // ...
+    try {
+      const result:userDataApi = await this.HTTPRequest("/users/me", "PATCH", data);
+      return result;
+    } catch (err) {
+      console.error(err);
+      return {} as userDataApi;
+    }
   }
   async addCard(data: { name: string; link: string }) {
     // ...
