@@ -7,14 +7,14 @@ export class Api {
     }
     async HTTPRequest(endpoint, method, body) {
         const options = { method, headers: this.headers };
-        if (body) {
+        if (body !== undefined) {
             options.body = JSON.stringify(body);
         }
         const res = await fetch(`${this.baseUrl}${endpoint}`, options);
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`);
         }
-        return res.json();
+        return (await res.json());
     }
     async getAllCards() {
         try {

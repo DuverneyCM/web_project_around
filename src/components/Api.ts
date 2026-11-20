@@ -1,4 +1,6 @@
-import type { cardData, cardDataApi, userDataApi } from "../types/types.js";
+import type { cardDataApi, userDataApi } from "../types/types.js";
+
+type HttpMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
 
 export interface apiOptions {
   baseUrl: string;
@@ -16,20 +18,20 @@ export class Api {
     this.headers = options.headers;
   }
 
-  async HTTPRequest(endpoint: string, method: string, body?: any) {
+  async HTTPRequest<T>(endpoint: string, method: HttpMethod, body?: unknown): Promise<T> {
     const options: RequestInit = { method, headers: this.headers };
-    if (body) {
+    if (body !== undefined) {
       options.body = JSON.stringify(body);
     }
     const res = await fetch(`${this.baseUrl}${endpoint}`, options);
     if (!res.ok) {
       throw new Error(`Error: ${res.status}`);
     }
-    return res.json();
+    return (await res.json()) as T;
   }
   async getAllCards(): Promise<cardDataApi[]> {
     try { 
-      const result: cardDataApi[] = await this.HTTPRequest("/cards", "GET");
+      const result = await this.HTTPRequest<cardDataApi[]>("/cards", "GET");
       return result;
     } catch (err) {
       console.error(err);
@@ -38,7 +40,7 @@ export class Api {
   }
   async getAllUsersInfo(): Promise<userDataApi[]>{
     try {
-      const result: userDataApi[] = await this.HTTPRequest("/users", "GET");
+      const result = await this.HTTPRequest<userDataApi[]>("/users", "GET");
       return result;
     } catch (err) {
       console.error(err);
@@ -47,7 +49,7 @@ export class Api {
   }
   async getMyUserInfo(): Promise<userDataApi>{
     try {
-      const result: userDataApi = await this.HTTPRequest("/users/me", "GET");
+      const result = await this.HTTPRequest<userDataApi>("/users/me", "GET");
       return result;
     } catch (err) {
       console.error(err);
@@ -56,7 +58,7 @@ export class Api {
   }
   async setMyUserInfo(data: { name: string; about: string }): Promise<userDataApi> {
     try {
-      const result:userDataApi = await this.HTTPRequest("/users/me", "PATCH", data);
+      const result = await this.HTTPRequest<userDataApi>("/users/me", "PATCH", data);
       return result;
     } catch (err) {
       console.error(err);
@@ -65,7 +67,7 @@ export class Api {
   }
   async setMyAvatar(data: { avatar: string }): Promise<userDataApi> {
     try {
-      const result:userDataApi = await this.HTTPRequest("/users/me/avatar", "PATCH", data);
+      const result = await this.HTTPRequest<userDataApi>("/users/me/avatar", "PATCH", data);
       return result;
     } catch (err) {
       console.error(err);
@@ -74,7 +76,7 @@ export class Api {
   }
   async addCard(data: Pick<cardDataApi, "name" | "link">): Promise<cardDataApi> {
     try {
-      const result:cardDataApi = await this.HTTPRequest("/cards", "POST", data);
+      const result = await this.HTTPRequest<cardDataApi>("/cards", "POST", data);
       return result;
     } catch (err) {
       console.error(err);
@@ -83,7 +85,7 @@ export class Api {
   }
   async removeCard(cardId: string) {
     try {
-      const result:cardDataApi = await this.HTTPRequest(`/cards/${cardId}`, "DELETE");
+      const result = await this.HTTPRequest<cardDataApi>(`/cards/${cardId}`, "DELETE");
       return result;
     } catch (err) {
       console.error(err);
@@ -93,10 +95,10 @@ export class Api {
   async toggleLikedCard(cardId: string, isLiked: boolean): Promise<cardDataApi> {
     try {
       if (isLiked) {
-        const result:cardDataApi = await this.HTTPRequest(`/cards/${cardId}/likes`, "DELETE");
+        const result = await this.HTTPRequest<cardDataApi>(`/cards/${cardId}/likes`, "DELETE");
         return result;
       } else {
-        const result:cardDataApi = await this.HTTPRequest(`/cards/${cardId}/likes`, "PUT");
+        const result = await this.HTTPRequest<cardDataApi>(`/cards/${cardId}/likes`, "PUT");
         return result;
       } 
     } catch (err) {
