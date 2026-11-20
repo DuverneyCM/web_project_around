@@ -19,7 +19,7 @@ export class Section {
     }
 
     public renderer() { 
-        this.initialCardDataList.forEach((CardData) => {
+        [...this.initialCardDataList].reverse().forEach((CardData) => {
             this.addItem( this.callbackRenderer(CardData) );
         });
     }
