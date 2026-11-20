@@ -9,12 +9,13 @@ export class UserInfo {
         this.setUserAvatar(initialData.avatar);
     }
     getUserInfo() {
-        const profileInfo = {};
+        const profileInfo = { title: "", description: "" };
         this.selectors.forEach(selector => {
             const name = selector.split("__")[1];
             const element = document.querySelector(selector);
-            if (element instanceof HTMLElement)
-                profileInfo[name] = element.textContent;
+            if (element instanceof HTMLElement) {
+                profileInfo[name] = element.textContent ?? "";
+            }
         });
         return profileInfo;
     }
@@ -22,8 +23,9 @@ export class UserInfo {
         this.selectors.forEach(selector => {
             const name = selector.split("__")[1];
             const element = document.querySelector(selector);
-            if (element instanceof HTMLElement)
+            if (element instanceof HTMLElement) {
                 element.textContent = profileInfo[name];
+            }
         });
     }
     setUserAvatar(avatarUrl) {

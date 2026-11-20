@@ -1,4 +1,4 @@
-import { initialCards, confObject } from "./utils/constants.js";
+import { confObject } from "./utils/constants.js";
 import { profileEditButton, profileAddButton, profileImage } from "./utils/constants.js";
 import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";

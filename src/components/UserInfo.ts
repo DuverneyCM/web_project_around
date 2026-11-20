@@ -1,4 +1,4 @@
-import type { FormValues, userDataApi } from "../types/types.js";
+import type { ProfileFormValues, userDataApi } from "../types/types.js";
 import { profileImage } from "../utils/selectors.js";
 
 export class UserInfo {
@@ -7,21 +7,25 @@ export class UserInfo {
     this.setUserAvatar(initialData.avatar);
   }
 
-  public getUserInfo():FormValues {
-    const profileInfo:FormValues = {};
+  public getUserInfo():ProfileFormValues {
+    const profileInfo:ProfileFormValues = { title: "", description: "" };
     this.selectors.forEach( selector => { 
       const name = selector.split("__")[1];
       const element = document.querySelector(selector) as HTMLElement;
-      if (element instanceof HTMLElement) profileInfo[name] = element.textContent;
+      if (element instanceof HTMLElement) {
+        profileInfo[name as keyof ProfileFormValues] = element.textContent ?? "";
+      }
     });
     return profileInfo;
   } 
   
-  public setUserInfo(profileInfo:FormValues):void {
+  public setUserInfo(profileInfo:ProfileFormValues):void {
     this.selectors.forEach( selector => {
       const name = selector.split("__")[1];
       const element = document.querySelector(selector) as HTMLElement;
-      if (element instanceof HTMLElement) element.textContent = profileInfo[name];
+      if (element instanceof HTMLElement) {
+        element.textContent = profileInfo[name as keyof ProfileFormValues];
+      }
     });
   }
   public setUserAvatar(avatarUrl:string):void {

@@ -35,8 +35,9 @@ export class PopupWithForm extends Popup {
         return formValues;
     }
     setInputValues(formValues) {
+        const values = formValues;
         this.inputList.forEach((input) => {
-            input.value = formValues[input.name] ?? "";
+            input.value = values[input.name] ?? "";
         });
     }
     unsetEventListeners() {

@@ -1,4 +1,4 @@
-import { initialCards, confObject } from "./utils/constants.js";
+import { confObject } from "./utils/constants.js";
 import { profileEditButton, profileAddButton, profileImage } from "./utils/constants.js";
 import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
@@ -7,8 +7,13 @@ import { FormValidator } from "./components/FormValidator.js";
 import { UserInfo } from "./components/UserInfo.js";
 import { Card } from "./components/Card.js";
 import { Section } from "./components/Section.js";
-import { Api, type apiOptions } from "./components/Api.js";
-import type {FormValues, cardData, cardDataApi, userDataApi} from "./types/types.js";
+import { Api } from "./components/Api.js";
+import type {
+  AvatarFormValues,
+  CardFormValues,
+  ProfileFormValues,
+  cardDataApi,
+} from "./types/types.js";
 import * as selector from "./utils/selectors.js";
 
 //create the API controller
@@ -54,7 +59,7 @@ const profileInfo = new UserInfo(
 );
 
 //Create Modals
-const modalEditProfile = new PopupWithForm({
+const modalEditProfile = new PopupWithForm<ProfileFormValues>({
   selector: selector.popupEditProfile,
   handleSendForm: async (formData) => {
     return api.setMyUserInfo({ name: formData.title, about: formData.description })
@@ -65,7 +70,7 @@ const modalEditProfile = new PopupWithForm({
 });
 new FormValidator(confObject, modalEditProfile.getForm());
 
-const modalAddCards = new PopupWithForm({
+const modalAddCards = new PopupWithForm<CardFormValues>({
   selector: selector.popupAddCards,
   handleSendForm: async (formData) => {
     return api.addCard({ name: formData.name, link: formData.link })
@@ -81,7 +86,7 @@ const modalPreviewCardImage = new PopupWithImage({
   selector: selector.popupPreviewCardImage,
 });
 
-const modalChangeAvatar = new PopupWithForm({
+const modalChangeAvatar = new PopupWithForm<AvatarFormValues>({
   selector: selector.popupChangeAvatar,
   handleSendForm: async (formData) => {
   return api.setMyAvatar({ avatar: formData.avatar })

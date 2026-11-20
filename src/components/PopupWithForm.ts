@@ -1,26 +1,26 @@
 import { Popup } from "./Popup.js";
-import type { selectorPopup, callbackPopupWithForm, FormValues } from "../types/types.js";
+import type { selectorPopup, FormSubmitHandler } from "../types/types.js";
 
 /**
  * @class used to represent modals that contain forms, which could requiere validate and submit data
  * @public
  */
-export class PopupWithForm extends Popup {
+export class PopupWithForm<T> extends Popup {
   form:HTMLFormElement;
   private inputList!: NodeListOf<HTMLInputElement>;
-  sendForm: callbackPopupWithForm;
+  sendForm: FormSubmitHandler<T>;
   /**
    * Create a new instance of PopupWithForm to manage modals with forms
    * @param selector - only accept a selector id (e.g. "#selector") listed in selectorPopup type
    * @param handleSendForm - callback function used to process collected form data when submit
    */
-  constructor ({selector, handleSendForm}:{selector:selectorPopup, handleSendForm:callbackPopupWithForm}) {
+  constructor ({selector, handleSendForm}:{selector:selectorPopup, handleSendForm:FormSubmitHandler<T>}) {
     super(selector);
     this.form = this.modal.querySelector(".popup__form") as HTMLFormElement;
     this.inputList = this.form.querySelectorAll(".popup__input") as NodeListOf<HTMLInputElement>;
     this.sendForm = handleSendForm;
   }
-  public override open(formValues?: FormValues) {
+  public override open(formValues?: T) {
     if (formValues) this.setInputValues(formValues);
     super.open();
   } 
@@ -28,16 +28,17 @@ export class PopupWithForm extends Popup {
     this.form.reset();
     super.close();
   }
-  private getInputValues() {
-    const formValues: FormValues = {};
+  private getInputValues(): T {
+    const formValues: Record<string, string> = {};
     this.inputList.forEach((input) => {
       formValues[input.name] = input.value;
     });
-    return formValues;
+    return formValues as T;
   }
-  private setInputValues( formValues:FormValues ) {
+  private setInputValues(formValues: T) {
+    const values = formValues as Partial<Record<string, string>>;
     this.inputList.forEach((input) => {
-      input.value = formValues[input.name] ?? "";
+      input.value = values[input.name] ?? "";
     });
   }
   public override unsetEventListeners() {

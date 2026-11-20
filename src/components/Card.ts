@@ -1,4 +1,4 @@
-import type { FormValues, callbackCardImageClick, cardDataApi } from "../types/types.js";
+import type { callbackCardImageClick, cardDataApi } from "../types/types.js";
 
 /**
  * @class used to render the cards. Add buttons to like and delete each card, and uses a callback to manage click events on the card image
