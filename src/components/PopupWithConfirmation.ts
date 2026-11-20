@@ -27,7 +27,7 @@ export class PopupWithConfirmation extends Popup {
         super.setEventListeners();
         this.confirmButton.addEventListener("click", this.handleClick);
     }
-    private handleClick = async (event: MouseEvent) => {
+    private handleClick = async (event: MouseEvent): Promise<void> => {
         const confirmButton = this.confirmButton;
         try {
             if (!this.cardToDelete) throw new Error();

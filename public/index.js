@@ -47,19 +47,20 @@ const profileInfo = new UserInfo([selector.profileTitle, selector.profileDescrip
 const modalEditProfile = new PopupWithForm({
     selector: selector.popupEditProfile,
     handleSendForm: async (formData) => {
-        const userDataUpdated = await api.setMyUserInfo({ name: formData.title, about: formData.description });
-        profileInfo.setUserInfo({ title: userDataUpdated.name, description: userDataUpdated.about });
+        return api.setMyUserInfo({ name: formData.title, about: formData.description })
+            .then((userDataUpdated) => {
+            profileInfo.setUserInfo({ title: userDataUpdated.name, description: userDataUpdated.about });
+        });
     },
 });
 new FormValidator(confObject, modalEditProfile.getForm());
 const modalAddCards = new PopupWithForm({
     selector: selector.popupAddCards,
     handleSendForm: async (formData) => {
-        const savedCard = await api.addCard({
-            name: formData.name,
-            link: formData.link,
+        return api.addCard({ name: formData.name, link: formData.link })
+            .then((savedCard) => {
+            cardRenderer.addItem(new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard());
         });
-        cardRenderer.addItem(new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard());
     },
 });
 new FormValidator(confObject, modalAddCards.getForm());
@@ -70,15 +71,20 @@ const modalPreviewCardImage = new PopupWithImage({
 const modalChangeAvatar = new PopupWithForm({
     selector: selector.popupChangeAvatar,
     handleSendForm: async (formData) => {
-        const userDataUpdated = await api.setMyAvatar({ avatar: formData.avatar });
-        profileInfo.setUserAvatar(userDataUpdated.avatar);
+        return api.setMyAvatar({ avatar: formData.avatar })
+            .then((userDataUpdated) => {
+            profileInfo.setUserAvatar(userDataUpdated.avatar);
+        });
     },
 });
 const modalConfirmation = new PopupWithConfirmation({
     selector: selector.popupConfirmation,
     handleConfirm: async (card) => {
-        console.log(await api.removeCard(card.dataset.id));
-        card.remove();
+        return api.removeCard(card.dataset.id)
+            .then((deletedCard) => {
+            console.log(deletedCard);
+            card.remove();
+        });
     }
 });
 //Buttons' events that open modals

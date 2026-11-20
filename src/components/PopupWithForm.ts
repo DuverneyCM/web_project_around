@@ -48,7 +48,7 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
     this.form.addEventListener("submit", this.handleSubmit );
   }
-  private handleSubmit = async (event: SubmitEvent) => { 
+  private handleSubmit = async (event: SubmitEvent): Promise<void> => { 
     event.preventDefault();
     const submitButton = this.form.querySelector(".popup__button") as HTMLButtonElement;
     const originalButtonText = submitButton.textContent;
