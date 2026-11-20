@@ -38,3 +38,4 @@ export const confObject = {
 
 export const profileEditButton = document.querySelector(".profile__edit-button") as HTMLButtonElement;
 export const profileAddButton = document.querySelector(".profile__add-button") as HTMLButtonElement;
+export const profileImage = document.querySelector(".profile__image") as HTMLImageElement;

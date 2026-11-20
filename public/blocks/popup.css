@@ -31,6 +31,10 @@
   cursor: pointer;
 }
 
+#confirmation-popup .popup__button {
+  margin-top: 38px;
+}
+
 .popup__close {
   width: 35px;
   height: 35px;
@@ -52,12 +56,12 @@
 .popup__content {
   max-width: 430px;
   width: 100%;
-  min-height: 323px;
+  min-height: 0px;
   background-color: #fff;
   border-radius: 10px;
   position: relative;
   box-sizing: border-box;
-  padding: 34px 36px;
+  padding: 34px 36px 36px;
 }
 
 .popup__form {

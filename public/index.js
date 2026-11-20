@@ -1,7 +1,8 @@
 import { initialCards, confObject } from "./utils/constants.js";
-import { profileEditButton, profileAddButton } from "./utils/constants.js";
+import { profileEditButton, profileAddButton, profileImage } from "./utils/constants.js";
 import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
+import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
 import { FormValidator } from "./components/FormValidator.js";
 import { UserInfo } from "./components/UserInfo.js";
 import { Card } from "./components/Card.js";
@@ -20,10 +21,13 @@ const api = new Api({
 const handleCardClick = (image) => {
     modalPreviewCardImage.open(image.name, image.link, image.alt);
 };
+const handleCardDelete = (card) => {
+    modalConfirmation.open(card);
+};
 const cardRenderer = new Section({
     items: await api.getInitialCards(),
     renderer: (cardData) => {
-        return new Card(cardData, selector.cardTemplate, handleCardClick).getCard();
+        return new Card(cardData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard();
     },
 }, ".cards__list");
 //create profileInfo controller
@@ -39,12 +43,23 @@ new FormValidator(confObject, modalEditProfile.getForm());
 const modalAddCards = new PopupWithForm({
     selector: selector.popupAddCards,
     handleSendForm: (formData) => {
-        cardRenderer.addItem(new Card(formData, selector.cardTemplate, handleCardClick).getCard());
+        cardRenderer.addItem(new Card(formData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard());
     },
 });
 new FormValidator(confObject, modalAddCards.getForm());
 const modalPreviewCardImage = new PopupWithImage({
     selector: selector.popupPreviewCardImage,
+});
+const modalChangeAvatar = new PopupWithForm({
+    selector: selector.popupChangeAvatar,
+    handleSendForm: (formData) => {
+        const profileImage = document.querySelector(".profile__image");
+        profileImage.src = formData.avatar;
+    },
+});
+const modalConfirmation = new PopupWithConfirmation({
+    selector: selector.popupConfirmation,
+    handleConfirm: (card) => card.remove()
 });
 //Buttons' events that open modals
 profileEditButton.addEventListener("click", () => {
@@ -52,4 +67,7 @@ profileEditButton.addEventListener("click", () => {
 });
 profileAddButton.addEventListener("click", () => {
     modalAddCards.open();
+});
+profileImage.addEventListener("click", () => {
+    modalChangeAvatar.open();
 });

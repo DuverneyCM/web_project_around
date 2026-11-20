@@ -7,10 +7,12 @@ export class Card {
     cardTemplate;
     cardItem;
     handleCardImageClick;
-    constructor(cardData, selector, handleCardClick) {
+    handleCardDelete;
+    constructor(cardData, selector, handleCardClick, handleCardDelete) {
         this.cardData = cardData;
         this.cardTemplate = document.querySelector(selector);
         this.handleCardImageClick = handleCardClick;
+        this.handleCardDelete = handleCardDelete;
         this.cardItem = this.createCard();
     }
     createCard() {
@@ -29,7 +31,7 @@ export class Card {
             cardLikeButton.classList.toggle("card__like-button_is-active");
         });
         cardDeleteButton.addEventListener("click", () => {
-            cardClone.remove();
+            this.handleCardDelete(cardClone);
         });
         cardImage.addEventListener("click", () => { this.handleCardImageClick(this.cardData); });
         return cardClone;

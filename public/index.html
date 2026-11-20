@@ -19,7 +19,13 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img class="profile__image" src="./images/avatar.jpg" alt="Avatar" />
+          <div class="profile__image-container">
+            <img
+              class="profile__image"
+              src="./images/avatar.jpg"
+              alt="Avatar"
+            />
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -149,6 +155,40 @@
           ></button>
           <img alt="" class="popup__image" src="#" />
           <p class="popup__caption"></p>
+        </div>
+      </div>
+      <div class="popup" id="confirmation-popup">
+        <div class="popup__content">
+          <button
+            aria-label="Cerrar ventana emergente"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">¿Estás seguro?</h3>
+          <button class="button popup__button" type="button">Si</button>
+        </div>
+      </div>
+      <div class="popup" id="change-avatar-popup">
+        <div class="popup__content">
+          <button
+            aria-label="Cerrar ventana emergente"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">Cambiar foto de perfil</h3>
+          <form class="popup__form" id="change-avatar-form" novalidate>
+            <label class="popup__field" for="change-avatar-form__avatar">
+              <input
+                class="popup__input popup__input_type_url"
+                id="change-avatar-form__avatar"
+                name="avatar"
+                placeholder="Enlace a la imagen"
+                type="url"
+                required
+              />
+            </label>
+            <button class="button popup__button" type="submit">Guardar</button>
+          </form>
         </div>
       </div>
     </div>

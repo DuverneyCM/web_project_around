@@ -1,9 +1,10 @@
 export type dictString = Record<string,string>;
-export type selectorPopup = "#edit-popup" | "#new-card-popup" | "#image-popup"
+export type selectorPopup = "#edit-popup" | "#new-card-popup" | "#image-popup" | "#confirmation-popup" | "#change-avatar-popup"
 //export type callbackPopupWithForm<T> = (data: T) => void;
 export type callbackPopupWithForm = (formValues:FormValues) => void;
 export type callbackCardImageClick = (formValues:FormValues) => void;
 export type callbackSectionRenderer = (initialCards:cardData) => HTMLElement;
+export type callbackConfirm = (card: HTMLElement) => void;
 
 
 

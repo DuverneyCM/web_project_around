@@ -1,8 +1,11 @@
 export const cardTemplate = "#card-template";
 export const profileTitle = ".profile__title";
+export const profileImage = ".profile__image";
 export const profileDescription = ".profile__description";
 export const popupEditProfile = "#edit-popup";
 export const popupAddCards = "#new-card-popup";
 export const popupPreviewCardImage = "#image-popup";
+export const popupConfirmation = "#confirmation-popup";
+export const popupChangeAvatar = "#change-avatar-popup";
 
 export const popupIsOpened = "#image-popup";

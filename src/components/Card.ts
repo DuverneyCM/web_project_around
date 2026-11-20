@@ -9,15 +9,18 @@ export class Card {
   private cardTemplate:HTMLTemplateElement;
   private cardItem:HTMLElement;
   private handleCardImageClick:callbackCardImageClick;
+  private handleCardDelete:(card:HTMLElement)=>void;
 
   constructor (
     cardData:FormValues, 
     selector:string,
     handleCardClick:callbackCardImageClick,
+    handleCardDelete:(card:HTMLElement)=>void,
   ) {
     this.cardData = cardData;
     this.cardTemplate = document.querySelector(selector) as HTMLTemplateElement;
     this.handleCardImageClick = handleCardClick
+    this.handleCardDelete = handleCardDelete;
     this.cardItem = this.createCard();
     
   }
@@ -39,7 +42,7 @@ export class Card {
       cardLikeButton.classList.toggle("card__like-button_is-active");
     });
     cardDeleteButton.addEventListener("click", () => {
-      cardClone.remove();
+      this.handleCardDelete(cardClone);
     });
     cardImage.addEventListener("click", () => {this.handleCardImageClick(this.cardData)});  
     
