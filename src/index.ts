@@ -69,9 +69,9 @@ const modalPreviewCardImage = new PopupWithImage({
 
 const modalChangeAvatar = new PopupWithForm({
   selector: selector.popupChangeAvatar,
-  handleSendForm: (formData) => {
-    const profileImage = document.querySelector(".profile__image") as HTMLImageElement;
-    profileImage.src = formData.avatar;
+  handleSendForm: async (formData) => {
+    const userDataUpdated = await api.setMyAvatar({ avatar: formData.avatar });
+    profileInfo.setUserAvatar(userDataUpdated.avatar);
   },
 });
 

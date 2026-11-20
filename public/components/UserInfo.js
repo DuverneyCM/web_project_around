@@ -6,7 +6,7 @@ export class UserInfo {
         this.selectors = selectors;
         this.initialData = initialData;
         this.setUserInfo({ title: initialData.name, description: initialData.about });
-        this.setProfileAvatar(initialData.avatar);
+        this.setUserAvatar(initialData.avatar);
     }
     getUserInfo() {
         const profileInfo = {};
@@ -26,7 +26,7 @@ export class UserInfo {
                 element.textContent = profileInfo[name];
         });
     }
-    setProfileAvatar(avatarUrl) {
+    setUserAvatar(avatarUrl) {
         const avatarElement = document.querySelector(profileImage);
         if (avatarElement instanceof HTMLImageElement)
             avatarElement.src = avatarUrl;

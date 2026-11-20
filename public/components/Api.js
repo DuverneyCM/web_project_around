@@ -56,6 +56,16 @@ export class Api {
             return {};
         }
     }
+    async setMyAvatar(data) {
+        try {
+            const result = await this.HTTPRequest("/users/me/avatar", "PATCH", data);
+            return result;
+        }
+        catch (err) {
+            console.error(err);
+            return {};
+        }
+    }
     async addCard(data) {
         // ...
     }

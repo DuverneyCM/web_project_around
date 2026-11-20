@@ -54,9 +54,18 @@ export class Api {
       return {} as userDataApi;
     }
   }
-  async setMyUserInfo(data: { name: string; about: string }) {
+  async setMyUserInfo(data: { name: string; about: string }): Promise<userDataApi> {
     try {
       const result:userDataApi = await this.HTTPRequest("/users/me", "PATCH", data);
+      return result;
+    } catch (err) {
+      console.error(err);
+      return {} as userDataApi;
+    }
+  }
+  async setMyAvatar(data: { avatar: string }): Promise<userDataApi> {
+    try {
+      const result:userDataApi = await this.HTTPRequest("/users/me/avatar", "PATCH", data);
       return result;
     } catch (err) {
       console.error(err);

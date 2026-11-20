@@ -37,9 +37,7 @@ const modalEditProfile = new PopupWithForm({
     selector: selector.popupEditProfile,
     handleSendForm: async (formData) => {
         const userDataUpdated = await api.setMyUserInfo({ name: formData.title, about: formData.description });
-        //console.log("userDataUpdated", userDataUpdated);
         profileInfo.setUserInfo({ title: userDataUpdated.name, description: userDataUpdated.about });
-        //profileInfo.setUserInfo(formData);
     },
 });
 new FormValidator(confObject, modalEditProfile.getForm());
@@ -55,9 +53,11 @@ const modalPreviewCardImage = new PopupWithImage({
 });
 const modalChangeAvatar = new PopupWithForm({
     selector: selector.popupChangeAvatar,
-    handleSendForm: (formData) => {
+    handleSendForm: async (formData) => {
         const profileImage = document.querySelector(".profile__image");
-        profileImage.src = formData.avatar;
+        const userDataUpdated = await api.setMyAvatar({ avatar: formData.avatar });
+        profileInfo.setUserAvatar(userDataUpdated.avatar);
+        //profileImage.src = userDataUpdated.avatar;
     },
 });
 const modalConfirmation = new PopupWithConfirmation({

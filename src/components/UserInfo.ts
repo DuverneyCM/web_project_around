@@ -4,7 +4,7 @@ import { profileImage } from "../utils/selectors.js";
 export class UserInfo {
   constructor (private selectors: string[], private initialData: userDataApi) {
     this.setUserInfo({ title: initialData.name, description: initialData.about });
-    this.setProfileAvatar(initialData.avatar);
+    this.setUserAvatar(initialData.avatar);
   }
 
   public getUserInfo():FormValues {
@@ -24,7 +24,7 @@ export class UserInfo {
       if (element instanceof HTMLElement) element.textContent = profileInfo[name];
     });
   }
-  public setProfileAvatar(avatarUrl:string):void {
+  public setUserAvatar(avatarUrl:string):void {
     const avatarElement = document.querySelector(profileImage) as HTMLImageElement;
     if (avatarElement instanceof HTMLImageElement) avatarElement.src = avatarUrl;
   }
