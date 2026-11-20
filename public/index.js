@@ -43,21 +43,24 @@ const modalEditProfile = new PopupWithForm({
 new FormValidator(confObject, modalEditProfile.getForm());
 const modalAddCards = new PopupWithForm({
     selector: selector.popupAddCards,
-    handleSendForm: (formData) => {
-        cardRenderer.addItem(new Card(formData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard());
+    handleSendForm: async (formData) => {
+        const savedCard = await api.addCard({
+            name: formData.name,
+            link: formData.link,
+        });
+        cardRenderer.addItem(new Card({ name: savedCard.name, link: savedCard.link }, selector.cardTemplate, handleCardClick, handleCardDelete).getCard());
     },
 });
 new FormValidator(confObject, modalAddCards.getForm());
+//new Card(formData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard(),
 const modalPreviewCardImage = new PopupWithImage({
     selector: selector.popupPreviewCardImage,
 });
 const modalChangeAvatar = new PopupWithForm({
     selector: selector.popupChangeAvatar,
     handleSendForm: async (formData) => {
-        const profileImage = document.querySelector(".profile__image");
         const userDataUpdated = await api.setMyAvatar({ avatar: formData.avatar });
         profileInfo.setUserAvatar(userDataUpdated.avatar);
-        //profileImage.src = userDataUpdated.avatar;
     },
 });
 const modalConfirmation = new PopupWithConfirmation({

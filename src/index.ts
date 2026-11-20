@@ -55,13 +55,18 @@ new FormValidator(confObject, modalEditProfile.getForm());
 
 const modalAddCards = new PopupWithForm({
   selector: selector.popupAddCards,
-  handleSendForm: (formData) => {
+  handleSendForm: async (formData) => {
+    const savedCard = await api.addCard({
+      name: formData.name,
+      link: formData.link,
+    });
     cardRenderer.addItem(
-      new Card(formData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard(),
+      new Card({ name: savedCard.name, link: savedCard.link }, selector.cardTemplate, handleCardClick, handleCardDelete).getCard()
     );
   },
 });
 new FormValidator(confObject, modalAddCards.getForm());
+//new Card(formData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard(),
 
 const modalPreviewCardImage = new PopupWithImage({
   selector: selector.popupPreviewCardImage,

@@ -72,8 +72,14 @@ export class Api {
       return {} as userDataApi;
     }
   }
-  async addCard(data: { name: string; link: string }) {
-    // ...
+  async addCard(data: Pick<cardDataApi, "name" | "link">): Promise<cardDataApi> {
+    try {
+      const result:cardDataApi = await this.HTTPRequest("/cards", "POST", data);
+      return result;
+    } catch (err) {
+      console.error(err);
+      return {} as cardDataApi;
+    }
   }
   async removeCard(cardId: string) {
     // ...

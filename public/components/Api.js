@@ -67,7 +67,14 @@ export class Api {
         }
     }
     async addCard(data) {
-        // ...
+        try {
+            const result = await this.HTTPRequest("/cards", "POST", data);
+            return result;
+        }
+        catch (err) {
+            console.error(err);
+            return {};
+        }
     }
     async removeCard(cardId) {
         // ...
