@@ -21,14 +21,25 @@ export class PopupWithConfirmation extends Popup {
     }
     public override unsetEventListeners() {
         super.unsetEventListeners();
-        this.confirmButton.removeEventListener("click", this.handleSubmit);
+        this.confirmButton.removeEventListener("click", this.handleClick);
     }
     public override setEventListeners() {
         super.setEventListeners();
-        this.confirmButton.addEventListener("click", this.handleSubmit);
+        this.confirmButton.addEventListener("click", this.handleClick);
     }
-    private handleSubmit = (event: MouseEvent) => {
-        if (this.cardToDelete) this.handleConfirm(this.cardToDelete);
-        this.close();
+    private handleClick = async (event: MouseEvent) => {
+        const confirmButton = this.confirmButton;
+        try {
+            if (!this.cardToDelete) throw new Error();
+            confirmButton.textContent = "Guardando...";
+            confirmButton.disabled = true;
+            await this.handleConfirm(this.cardToDelete);
+            this.close();
+        } catch (error) {
+            console.error("Could not complete card deletion:", error);
+        } finally {
+            confirmButton.textContent = "Si";
+            confirmButton.disabled = false;
+        }
     };
 }

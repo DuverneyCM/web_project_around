@@ -48,10 +48,21 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
     this.form.addEventListener("submit", this.handleSubmit );
   }
-  private handleSubmit = (event: SubmitEvent):void => { 
+  private handleSubmit = async (event: SubmitEvent) => { 
     event.preventDefault();
-    this.sendForm( this.getInputValues() );
-    this.close();
+    const submitButton = this.form.querySelector(".popup__button") as HTMLButtonElement;
+    const originalButtonText = submitButton.textContent;
+    try {
+      submitButton.textContent = "Guardando...";
+      submitButton.disabled = true;
+      await this.sendForm( this.getInputValues() );
+      this.close();
+    } catch (error) {
+      console.error("Error sending form data:", error);
+    } finally {
+      submitButton.textContent = originalButtonText;
+      submitButton.disabled = false;
+    }
   }
 
   public getForm():HTMLFormElement {
