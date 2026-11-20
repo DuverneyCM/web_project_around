@@ -82,7 +82,13 @@ export class Api {
     }
   }
   async removeCard(cardId: string) {
-    // ...
+    try {
+      const result:cardDataApi = await this.HTTPRequest(`/cards/${cardId}`, "DELETE");
+      return result;
+    } catch (err) {
+      console.error(err);
+      return {} as cardDataApi;
+    }
   }
 
 }

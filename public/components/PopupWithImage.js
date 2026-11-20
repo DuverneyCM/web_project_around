@@ -22,7 +22,7 @@ export class PopupWithImage extends Popup {
      * @param imageSrcLink
      * @param imageAlt
      */
-    open(imageName = "", imageSrcLink = "", imageAlt = "") {
+    open(imageName = "", imageSrcLink = "", imageAlt = imageName) {
         this.image.src = imageSrcLink;
         this.image.alt = imageAlt;
         this.caption.textContent = imageName;

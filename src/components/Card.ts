@@ -1,18 +1,18 @@
-import type { FormValues, callbackCardImageClick } from "../types/types.js";
+import type { FormValues, callbackCardImageClick, cardDataApi } from "../types/types.js";
 
 /**
  * @class used to render the cards. Add buttons to like and delete each card, and uses a callback to manage click events on the card image
  * @public
  */
 export class Card {
-  private cardData:FormValues;
+  private cardData:cardDataApi;
   private cardTemplate:HTMLTemplateElement;
   private cardItem:HTMLElement;
   private handleCardImageClick:callbackCardImageClick;
   private handleCardDelete:(card:HTMLElement)=>void;
 
   constructor (
-    cardData:FormValues, 
+    cardData:cardDataApi, 
     selector:string,
     handleCardClick:callbackCardImageClick,
     handleCardDelete:(card:HTMLElement)=>void,
@@ -33,11 +33,21 @@ export class Card {
     const cardImage = cardClone.querySelector(".card__image") as HTMLImageElement;
     const cardDeleteButton = cardClone.querySelector(".card__delete-button") as HTMLButtonElement;
     const cardLikeButton = cardClone.querySelector(".card__like-button") as HTMLButtonElement;
-    this.cardData.alt = this.cardData.name;
+  
     cardTitle.textContent = this.cardData.name;
     cardImage.src = this.cardData.link;
-    cardImage.alt = this.cardData.alt;
-    
+    cardImage.alt = this.cardData.name;
+    cardClone.dataset.id = this.cardData._id;
+    cardClone.dataset.owner = this.cardData.owner;
+    cardClone.dataset.createdAt = this.cardData.createdAt;;    
+    //cardClone.dataset.isLiked = this.cardData.isLiked.toString();
+
+    if (this.cardData.isLiked) {
+      cardLikeButton.classList.add("card__like-button_is-active");
+    } else {
+      cardLikeButton.classList.remove("card__like-button_is-active");
+    }
+
     cardLikeButton.addEventListener("click", () => {
       cardLikeButton.classList.toggle("card__like-button_is-active");
     });

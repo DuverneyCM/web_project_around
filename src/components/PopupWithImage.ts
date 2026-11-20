@@ -24,7 +24,7 @@ export class PopupWithImage extends Popup {
      * @param imageSrcLink
      * @param imageAlt
      */
-    public override open (imageName:string = "", imageSrcLink:string = "", imageAlt:string = "") {
+    public override open (imageName:string = "", imageSrcLink:string = "", imageAlt:string = imageName) {
         this.image.src = imageSrcLink;
         this.image.alt = imageAlt;
         this.caption.textContent = imageName;

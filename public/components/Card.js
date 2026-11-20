@@ -23,10 +23,20 @@ export class Card {
         const cardImage = cardClone.querySelector(".card__image");
         const cardDeleteButton = cardClone.querySelector(".card__delete-button");
         const cardLikeButton = cardClone.querySelector(".card__like-button");
-        this.cardData.alt = this.cardData.name;
         cardTitle.textContent = this.cardData.name;
         cardImage.src = this.cardData.link;
-        cardImage.alt = this.cardData.alt;
+        cardImage.alt = this.cardData.name;
+        cardClone.dataset.id = this.cardData._id;
+        cardClone.dataset.owner = this.cardData.owner;
+        cardClone.dataset.createdAt = this.cardData.createdAt;
+        ;
+        //cardClone.dataset.isLiked = this.cardData.isLiked.toString();
+        if (this.cardData.isLiked) {
+            cardLikeButton.classList.add("card__like-button_is-active");
+        }
+        else {
+            cardLikeButton.classList.remove("card__like-button_is-active");
+        }
         cardLikeButton.addEventListener("click", () => {
             cardLikeButton.classList.toggle("card__like-button_is-active");
         });

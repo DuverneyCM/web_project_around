@@ -8,7 +8,7 @@ import { UserInfo } from "./components/UserInfo.js";
 import { Card } from "./components/Card.js";
 import { Section } from "./components/Section.js";
 import { Api, type apiOptions } from "./components/Api.js";
-import type {FormValues, cardData, userDataApi} from "./types/types.js";
+import type {FormValues, cardData, cardDataApi, userDataApi} from "./types/types.js";
 import * as selector from "./utils/selectors.js";
 
 //create the API controller
@@ -21,8 +21,8 @@ const api = new Api({
 });
 
 //create the cards renderer
-const handleCardClick = (image:FormValues) => {
-  modalPreviewCardImage.open(image.name, image.link, image.alt);
+const handleCardClick = (image:cardDataApi) => {
+  modalPreviewCardImage.open(image.name, image.link);
 };
 const handleCardDelete = (card:HTMLElement) => {
   modalConfirmation.open(card);
@@ -61,7 +61,7 @@ const modalAddCards = new PopupWithForm({
       link: formData.link,
     });
     cardRenderer.addItem(
-      new Card({ name: savedCard.name, link: savedCard.link }, selector.cardTemplate, handleCardClick, handleCardDelete).getCard()
+      new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete).getCard()
     );
   },
 });
@@ -82,7 +82,10 @@ const modalChangeAvatar = new PopupWithForm({
 
 const modalConfirmation = new PopupWithConfirmation({
   selector: selector.popupConfirmation,
-  handleConfirm: (card) => card.remove()
+  handleConfirm: async (card) => {
+    console.log( await api.removeCard(card.dataset.id as string) ); 
+    card.remove()
+  }
 });
 
 //Buttons' events that open modals

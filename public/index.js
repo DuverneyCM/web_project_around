@@ -19,7 +19,7 @@ const api = new Api({
 });
 //create the cards renderer
 const handleCardClick = (image) => {
-    modalPreviewCardImage.open(image.name, image.link, image.alt);
+    modalPreviewCardImage.open(image.name, image.link);
 };
 const handleCardDelete = (card) => {
     modalConfirmation.open(card);
@@ -48,7 +48,7 @@ const modalAddCards = new PopupWithForm({
             name: formData.name,
             link: formData.link,
         });
-        cardRenderer.addItem(new Card({ name: savedCard.name, link: savedCard.link }, selector.cardTemplate, handleCardClick, handleCardDelete).getCard());
+        cardRenderer.addItem(new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete).getCard());
     },
 });
 new FormValidator(confObject, modalAddCards.getForm());
@@ -65,7 +65,10 @@ const modalChangeAvatar = new PopupWithForm({
 });
 const modalConfirmation = new PopupWithConfirmation({
     selector: selector.popupConfirmation,
-    handleConfirm: (card) => card.remove()
+    handleConfirm: async (card) => {
+        console.log(await api.removeCard(card.dataset.id));
+        card.remove();
+    }
 });
 //Buttons' events that open modals
 profileEditButton.addEventListener("click", () => {
