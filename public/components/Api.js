@@ -16,90 +16,29 @@ export class Api {
         }
         return (await res.json());
     }
-    async getAllCards() {
-        try {
-            const result = await this.HTTPRequest("/cards", "GET");
-            return result;
-        }
-        catch (err) {
-            console.error(err);
-            return [];
-        }
+    getAllCards() {
+        return this.HTTPRequest("/cards", "GET");
     }
-    async getAllUsersInfo() {
-        try {
-            const result = await this.HTTPRequest("/users", "GET");
-            return result;
-        }
-        catch (err) {
-            console.error(err);
-            return [];
-        }
+    getAllUsersInfo() {
+        return this.HTTPRequest("/users", "GET");
     }
-    async getMyUserInfo() {
-        try {
-            const result = await this.HTTPRequest("/users/me", "GET");
-            return result;
-        }
-        catch (err) {
-            console.error(err);
-            return {};
-        }
+    getMyUserInfo() {
+        return this.HTTPRequest("/users/me--", "GET");
     }
-    async setMyUserInfo(data) {
-        try {
-            const result = await this.HTTPRequest("/users/me", "PATCH", data);
-            return result;
-        }
-        catch (err) {
-            console.error(err);
-            return {};
-        }
+    setMyUserInfo(data) {
+        return this.HTTPRequest("/users/me", "PATCH", data);
     }
-    async setMyAvatar(data) {
-        try {
-            const result = await this.HTTPRequest("/users/me/avatar", "PATCH", data);
-            return result;
-        }
-        catch (err) {
-            console.error(err);
-            return {};
-        }
+    setMyAvatar(data) {
+        return this.HTTPRequest("/users/me/avatar", "PATCH", data);
     }
-    async addCard(data) {
-        try {
-            const result = await this.HTTPRequest("/cards", "POST", data);
-            return result;
-        }
-        catch (err) {
-            console.error(err);
-            return {};
-        }
+    addCard(data) {
+        return this.HTTPRequest("/cards", "POST", data);
     }
-    async removeCard(cardId) {
-        try {
-            const result = await this.HTTPRequest(`/cards/${cardId}`, "DELETE");
-            return result;
-        }
-        catch (err) {
-            console.error(err);
-            return {};
-        }
+    removeCard(cardId) {
+        return this.HTTPRequest(`/cards/${cardId}`, "DELETE");
     }
-    async toggleLikedCard(cardId, isLiked) {
-        try {
-            if (isLiked) {
-                const result = await this.HTTPRequest(`/cards/${cardId}/likes`, "DELETE");
-                return result;
-            }
-            else {
-                const result = await this.HTTPRequest(`/cards/${cardId}/likes`, "PUT");
-                return result;
-            }
-        }
-        catch (err) {
-            console.error(err);
-            return {};
-        }
+    toggleLikedCard(cardId, isLiked) {
+        const method = isLiked ? "DELETE" : "PUT";
+        return this.HTTPRequest(`/cards/${cardId}/likes`, method);
     }
 }

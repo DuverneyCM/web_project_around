@@ -1,4 +1,4 @@
-import { confObject } from "./utils/constants.js";
+import { confObject, tokenApi } from "./utils/constants.js";
 import { profileEditButton, profileAddButton, profileImage } from "./utils/constants.js";
 import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
@@ -20,7 +20,7 @@ import * as selector from "./utils/selectors.js";
 const api = new Api({
   baseUrl: "https://around-api.es.tripleten-services.com/v1",
   headers: {
-    authorization: "ec11ff81-b061-43b7-92de-f505e22826c4",
+    authorization: tokenApi,
     "Content-Type": "application/json"
   }
 });
@@ -40,11 +40,24 @@ const handleCardLike = (cardLikeButton:HTMLButtonElement, cardId: string) => {
     } else {
       cardLikeButton.classList.remove("card__like-button_is-active");
     }
+  })
+  .catch((error) => {
+    console.error("Could not update card like:", error);
   });
 };
 const cardRenderer = new Section(
   {
-    items: await api.getAllCards(),
+    items: await api.getAllCards().catch((error) => {
+      console.error("Could not fetch cards:", error);
+      return [{
+        _id: "no-id",
+        name: "Card Name",
+        link: "./images/placeholder.jpg",
+        isLiked: false,
+        owner: "",
+        createdAt: ""
+      }];
+    }),
     renderer: (cardData) => {
       return new Card(cardData, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard();
     },
@@ -58,7 +71,15 @@ const profileInfo = new UserInfo(
     { selector: selector.profileTitle, property: "title" },
     { selector: selector.profileDescription, property: "description" },
   ],
-  await api.getMyUserInfo()
+  await api.getMyUserInfo().catch((error) => {
+    console.error("No se pudo cargar el perfil:", error);
+    return {
+      _id: "",
+      name: "Name (no loaded)",
+      about: "About (no loaded)",
+      avatar: "./images/placeholder.jpg" 
+    };
+  })
 );
 
 //Create Modals

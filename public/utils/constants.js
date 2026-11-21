@@ -37,3 +37,17 @@ export const confObject = {
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const profileAddButton = document.querySelector(".profile__add-button");
 export const profileImage = document.querySelector(".profile__image");
+export const tokenApi = "ec11ff81-b061-43b7-92de-f505e22826c4";
+/*
+  create new user in server:
+  https://around-api.es.tripleten-services.com/v1/users/create
+  {"user":
+    {
+      "name":"Jacques Cousteau",
+      "about":"Explorador",
+      "avatar":"https://practicum-content.s3.us-west-1.amazonaws.com/frontend-developer/common/avatar.jpg",
+      "_id":"ead0a305f6d63fa7a054dd81"
+    },
+    "token":"ec11ff81-b061-43b7-92de-f505e22826c4"
+  }
+*/

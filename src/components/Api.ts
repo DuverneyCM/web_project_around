@@ -29,82 +29,30 @@ export class Api {
     }
     return (await res.json()) as T;
   }
-  async getAllCards(): Promise<cardDataApi[]> {
-    try { 
-      const result = await this.HTTPRequest<cardDataApi[]>("/cards", "GET");
-      return result;
-    } catch (err) {
-      console.error(err);
-      return [];
-    }
+  getAllCards(): Promise<cardDataApi[]> {
+    return this.HTTPRequest<cardDataApi[]>("/cards", "GET");
   }
-  async getAllUsersInfo(): Promise<userDataApi[]>{
-    try {
-      const result = await this.HTTPRequest<userDataApi[]>("/users", "GET");
-      return result;
-    } catch (err) {
-      console.error(err);
-      return [] as userDataApi[];
-    }
+  getAllUsersInfo(): Promise<userDataApi[]> {
+    return this.HTTPRequest<userDataApi[]>("/users", "GET");
   }
-  async getMyUserInfo(): Promise<userDataApi>{
-    try {
-      const result = await this.HTTPRequest<userDataApi>("/users/me", "GET");
-      return result;
-    } catch (err) {
-      console.error(err);
-      return {} as userDataApi;
-    }
+  getMyUserInfo(): Promise<userDataApi> {
+    return this.HTTPRequest<userDataApi>("/users/me", "GET");
   }
-  async setMyUserInfo(data: { name: string; about: string }): Promise<userDataApi> {
-    try {
-      const result = await this.HTTPRequest<userDataApi>("/users/me", "PATCH", data);
-      return result;
-    } catch (err) {
-      console.error(err);
-      return {} as userDataApi;
-    }
+  setMyUserInfo(data: { name: string; about: string }): Promise<userDataApi> {
+    return this.HTTPRequest<userDataApi>("/users/me", "PATCH", data);
   }
-  async setMyAvatar(data: { avatar: string }): Promise<userDataApi> {
-    try {
-      const result = await this.HTTPRequest<userDataApi>("/users/me/avatar", "PATCH", data);
-      return result;
-    } catch (err) {
-      console.error(err);
-      return {} as userDataApi;
-    }
+  setMyAvatar(data: { avatar: string }): Promise<userDataApi> {
+    return this.HTTPRequest<userDataApi>("/users/me/avatar", "PATCH", data);
   }
-  async addCard(data: Pick<cardDataApi, "name" | "link">): Promise<cardDataApi> {
-    try {
-      const result = await this.HTTPRequest<cardDataApi>("/cards", "POST", data);
-      return result;
-    } catch (err) {
-      console.error(err);
-      return {} as cardDataApi;
-    }
+  addCard(data: Pick<cardDataApi, "name" | "link">): Promise<cardDataApi> {
+    return this.HTTPRequest<cardDataApi>("/cards", "POST", data);
   }
-  async removeCard(cardId: string) {
-    try {
-      const result = await this.HTTPRequest<cardDataApi>(`/cards/${cardId}`, "DELETE");
-      return result;
-    } catch (err) {
-      console.error(err);
-      return {} as cardDataApi;
-    }
+  removeCard(cardId: string): Promise<cardDataApi> {
+    return this.HTTPRequest<cardDataApi>(`/cards/${cardId}`, "DELETE");
   }
-  async toggleLikedCard(cardId: string, isLiked: boolean): Promise<cardDataApi> {
-    try {
-      if (isLiked) {
-        const result = await this.HTTPRequest<cardDataApi>(`/cards/${cardId}/likes`, "DELETE");
-        return result;
-      } else {
-        const result = await this.HTTPRequest<cardDataApi>(`/cards/${cardId}/likes`, "PUT");
-        return result;
-      } 
-    } catch (err) {
-      console.error(err);
-      return {} as cardDataApi;
-    }
+  toggleLikedCard(cardId: string, isLiked: boolean): Promise<cardDataApi> {
+    const method: HttpMethod = isLiked ? "DELETE" : "PUT";
+    return this.HTTPRequest<cardDataApi>(`/cards/${cardId}/likes`, method);
   }
 
 }
