@@ -54,7 +54,10 @@ const cardRenderer = new Section(
 
 //create profileInfo controller
 const profileInfo = new UserInfo(
-  [selector.profileTitle, selector.profileDescription],
+  [
+    { selector: selector.profileTitle, property: "title" },
+    { selector: selector.profileDescription, property: "description" },
+  ],
   await api.getMyUserInfo()
 );
 

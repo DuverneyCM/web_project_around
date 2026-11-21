@@ -1,30 +1,33 @@
 import type { ProfileFormValues, userDataApi } from "../types/types.js";
 import { profileImage } from "../utils/selectors.js";
 
+type ProfileInfoField = {
+  selector: string;
+  property: keyof ProfileFormValues;
+};
+
 export class UserInfo {
-  constructor (private selectors: string[], private initialData: userDataApi) {
+  constructor (private fields: ProfileInfoField[], initialData: userDataApi) {
     this.setUserInfo({ title: initialData.name, description: initialData.about });
     this.setUserAvatar(initialData.avatar);
   }
 
   public getUserInfo():ProfileFormValues {
     const profileInfo:ProfileFormValues = { title: "", description: "" };
-    this.selectors.forEach( selector => { 
-      const name = selector.split("__")[1];
-      const element = document.querySelector(selector) as HTMLElement;
+    this.fields.forEach(({ selector, property }) => {
+      const element = document.querySelector(selector);
       if (element instanceof HTMLElement) {
-        profileInfo[name as keyof ProfileFormValues] = element.textContent ?? "";
+        profileInfo[property] = element.textContent ?? "";
       }
     });
     return profileInfo;
   } 
   
   public setUserInfo(profileInfo:ProfileFormValues):void {
-    this.selectors.forEach( selector => {
-      const name = selector.split("__")[1];
-      const element = document.querySelector(selector) as HTMLElement;
+    this.fields.forEach(({ selector, property }) => {
+      const element = document.querySelector(selector);
       if (element instanceof HTMLElement) {
-        element.textContent = profileInfo[name as keyof ProfileFormValues];
+        element.textContent = profileInfo[property];
       }
     });
   }

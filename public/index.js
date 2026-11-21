@@ -42,7 +42,10 @@ const cardRenderer = new Section({
     },
 }, ".cards__list");
 //create profileInfo controller
-const profileInfo = new UserInfo([selector.profileTitle, selector.profileDescription], await api.getMyUserInfo());
+const profileInfo = new UserInfo([
+    { selector: selector.profileTitle, property: "title" },
+    { selector: selector.profileDescription, property: "description" },
+], await api.getMyUserInfo());
 //Create Modals
 const modalEditProfile = new PopupWithForm({
     selector: selector.popupEditProfile,

@@ -1,30 +1,26 @@
 import { profileImage } from "../utils/selectors.js";
 export class UserInfo {
-    selectors;
-    initialData;
-    constructor(selectors, initialData) {
-        this.selectors = selectors;
-        this.initialData = initialData;
+    fields;
+    constructor(fields, initialData) {
+        this.fields = fields;
         this.setUserInfo({ title: initialData.name, description: initialData.about });
         this.setUserAvatar(initialData.avatar);
     }
     getUserInfo() {
         const profileInfo = { title: "", description: "" };
-        this.selectors.forEach(selector => {
-            const name = selector.split("__")[1];
+        this.fields.forEach(({ selector, property }) => {
             const element = document.querySelector(selector);
             if (element instanceof HTMLElement) {
-                profileInfo[name] = element.textContent ?? "";
+                profileInfo[property] = element.textContent ?? "";
             }
         });
         return profileInfo;
     }
     setUserInfo(profileInfo) {
-        this.selectors.forEach(selector => {
-            const name = selector.split("__")[1];
+        this.fields.forEach(({ selector, property }) => {
             const element = document.querySelector(selector);
             if (element instanceof HTMLElement) {
-                element.textContent = profileInfo[name];
+                element.textContent = profileInfo[property];
             }
         });
     }
