@@ -11,20 +11,20 @@
 
 ## 📌 Descripción del Proyecto
 
-**Around The U.S.** es una aplicación web interactiva y totalmente responsiva diseñada para compartir y explorar fotografías de lugares emblemáticos de Estados Unidos. Este proyecto forma parte del bootcamp de desarrollo web de **TripleTen**. La sección anterior estuvo enfocada en consolidar buenas prácticas de maquetación, diseño adaptable y manipulación del DOM con JavaScript. Esta última actualización se enfocó en refactorización, integrando en el proceso **TypeScript** y diseño basado en **POO** usando acoplamiento suave, destacando el uso de **Observers** para capturar cambios en el DOM generados por otros objetos.
+**Around The U.S.** es una aplicación web interactiva y responsiva para compartir y explorar fotografías de lugares. Forma parte del bootcamp de desarrollo web de **TripleTen**.
 
-La página permite a los usuarios personalizar su perfil (editar nombre e información personal), agregar nuevas tarjetas con imágenes y títulos de lugares, dar "me gusta" a las publicaciones y eliminar tarjetas existentes mediante ventanas modales interactivas. También permite ver las imagenes de las tarjetas ampliadas tras dar clic en ellas.
-
-Por ahora, no hay backend, por lo que los cambios realizados por el usuario no se conservan.
+La aplicación permite consultar tarjetas desde una API, agregar lugares, dar o quitar "me gusta" y eliminar tarjetas después de confirmar la acción. También permite editar el nombre y la descripción del perfil, cambiar el avatar y abrir las fotografías en una vista ampliada. Las tarjetas se crean y actualizan en el servidor mediante solicitudes HTTP.
 
 ---
 
 ## 🚀 Características Principales
 
 - **Diseño Responsivo (Mobile-First):** Adaptado de manera fluida para dispositivos móviles, tabletas y ordenadores de escritorio.
-- **Ventanas Modales Interactuantes:** Formularios emergentes para editar el perfil de usuario y añadir nuevas tarjetas fotográficas con transiciones suaves.
-- **Interactividad con JavaScript:** Manipulación dinámica del DOM para usar agregar, eliminar y dar "me gusta" a tarjetas de forma eficiente, y editar información de perfil.
-- **TypeScript y POO:** Uso de tipado y diseño basado en clases para mejorar la mantenibilidad y escalabilidad del código.
+- **Perfil personalizable:** Edición del nombre y la descripción del usuario.
+- **Galería de tarjetas:** Creación, eliminación, "me gusta" y vista ampliada de las fotografías.
+- **Ventanas modales:** Formularios emergentes para editar el perfil y agregar tarjetas.
+- **Validación de formularios:** Reglas de validación y mensajes de error para los campos de entrada.
+- **TypeScript y POO:** Uso de clases y tipos para organizar y mantener el código.
 - **Estructura CSS Modular:** Uso de la metodología **BEM (Block, Element, Modifier)** y arquitectura de archivos organizada.
 - **Flexbox y Grid CSS:** Diseños modernos para la galería y distribución de elementos.
 
@@ -36,9 +36,25 @@ Por ahora, no hay backend, por lo que los cambios realizados por el usuario no s
 - **CSS3:** Estilos avanzados, Flexbox, CSS Grid y Media Queries.
 - **JavaScript:** Lógica del cliente, manejo de eventos y manipulación del DOM.
 - **TypeScript:** Tipado estático para detectar errores y mejorar la claridad y mantenibilidad del código.
-- **POO:** Organiza el código en objetos y clases para reutilizar y mantener mejor la lógica.
+- **Fetch API y HTTP:** Comunicación con el servidor para consultar y modificar datos.
+- **Promesas y funciones asíncronas:** `async`/`await` y `.then()` para procesar respuestas del servidor.
+- **Manejo de excepciones:** Propagación de errores en la capa de API y captura en los flujos de formularios y confirmación.
+- **POO:** Clases para popups, tarjetas, secciones, validación de formularios y comunicación con la API.
+- **MutationObserver:** Observa cambios en el estado del popup para actualizar la validación del formulario cuando se abre.
 - **Metodología BEM:** Para una nomenclatura limpia y mantenible en CSS.
 - **Git y GitHub:** Control de versiones y despliegue del proyecto.
+
+---
+
+## 📚 Funcionalidad agregada en el Sprint 9
+
+- Integración con la API del proyecto mediante solicitudes HTTP.
+- Carga y actualización de tarjetas y perfil: agregar tarjetas, cambiar el avatar, gestionar "me gusta" y eliminar con confirmación.
+- Uso de promesas y funciones asíncronas para esperar y procesar las respuestas.
+- Manejo de excepciones durante las operaciones de datos.
+- Indicadores temporales de actividad —como "Guardando..." y botones deshabilitados— mientras se procesan solicitudes.
+- Efecto hover en la imagen de perfil: Al pasar el cursor sobre ésta, se atenúa y muestra un icono de edición para indicar que es interactiva.
+- Uso de **OpenAI Codex** como herramienta de apoyo para depurar errores, revisar tipos y desarrollar funcionalidades.
 
 ---
 
