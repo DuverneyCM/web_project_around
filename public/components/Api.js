@@ -23,7 +23,7 @@ export class Api {
         return this.HTTPRequest("/users", "GET");
     }
     getMyUserInfo() {
-        return this.HTTPRequest("/users/me--", "GET");
+        return this.HTTPRequest("/users/me", "GET");
     }
     setMyUserInfo(data) {
         return this.HTTPRequest("/users/me", "PATCH", data);
