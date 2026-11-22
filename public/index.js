@@ -80,27 +80,29 @@ const modalEditProfile = new PopupWithForm({
 new FormValidator(confObject, modalEditProfile.getForm());
 const modalAddCards = new PopupWithForm({
     selector: selector.popupAddCards,
-    handleSendForm: async (formData) => {
-        return api.addCard({ name: formData.name, link: formData.link })
+    handleSendForm: (formData) => {
+        return addCardFormValidator.validateImageUrl("link", formData.link)
+            .then(() => api.addCard({ name: formData.name, link: formData.link }))
             .then((savedCard) => {
             cardRenderer.addItem(new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard());
         });
     },
 });
-new FormValidator(confObject, modalAddCards.getForm());
+const addCardFormValidator = new FormValidator(confObject, modalAddCards.getForm());
 const modalPreviewCardImage = new PopupWithImage({
     selector: selector.popupPreviewCardImage,
 });
 const modalChangeAvatar = new PopupWithForm({
     selector: selector.popupChangeAvatar,
-    handleSendForm: async (formData) => {
-        return api.setMyAvatar({ avatar: formData.avatar })
+    handleSendForm: (formData) => {
+        return avatarFormValidator.validateImageUrl("avatar", formData.avatar)
+            .then(() => api.setMyAvatar({ avatar: formData.avatar }))
             .then((userDataUpdated) => {
             profileInfo.setUserAvatar(userDataUpdated.avatar);
         });
     },
 });
-new FormValidator(confObject, modalChangeAvatar.getForm());
+const avatarFormValidator = new FormValidator(confObject, modalChangeAvatar.getForm());
 const modalConfirmation = new PopupWithConfirmation({
     selector: selector.popupConfirmation,
     handleConfirm: async (card) => {

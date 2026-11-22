@@ -41,6 +41,25 @@ export class FormValidator {
   public resetValidation():void {
     this.inputList.forEach((input) => { this.hideInputError(input)  });
   }
+  public async validateImageUrl(inputName: string, url: string): Promise<void> {
+    const input = Array.from(this.inputList).find((field) => field.name === inputName);
+    if (!input) throw new Error(`No se encontró el campo ${inputName}.`);
+
+    const isValidImage = await new Promise<boolean>((resolve) => {
+      const image = new Image();
+      image.onload = () => resolve(image.naturalWidth > 0 && image.naturalHeight > 0);
+      image.onerror = () => resolve(false);
+      image.src = url;
+    });
+
+    if (!isValidImage) {
+      const errorMessage = "El enlace no carga una imagen válida.";
+      this.showInputError(input, errorMessage);
+      throw new Error(errorMessage);
+    }
+
+    this.hideInputError(input);
+  }
   showInputError(element:HTMLInputElement, errorMessage:string) {
     const errorElement = document.querySelector(`#${element.id}-error`);
     element.classList.add(this.objSelectors["input_typeError"]);

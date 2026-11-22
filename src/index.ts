@@ -13,6 +13,7 @@ import type {
   CardFormValues,
   ProfileFormValues,
   cardDataApi,
+  userDataApi,
 } from "./types/types.js";
 import * as selector from "./utils/selectors.js";
 
@@ -96,14 +97,15 @@ new FormValidator(confObject, modalEditProfile.getForm());
 
 const modalAddCards = new PopupWithForm<CardFormValues>({
   selector: selector.popupAddCards,
-  handleSendForm: async (formData) => {
-    return api.addCard({ name: formData.name, link: formData.link })
-    .then((savedCard) => {
+  handleSendForm: (formData: CardFormValues): Promise<void> => {
+    return addCardFormValidator.validateImageUrl("link", formData.link)
+    .then(() => api.addCard({ name: formData.name, link: formData.link }) )
+    .then((savedCard:cardDataApi) => {
       cardRenderer.addItem( new Card(savedCard, selector.cardTemplate, handleCardClick, handleCardDelete, handleCardLike).getCard() );
     });
   },
 });
-new FormValidator(confObject, modalAddCards.getForm());
+const addCardFormValidator = new FormValidator(confObject, modalAddCards.getForm());
 
 const modalPreviewCardImage = new PopupWithImage({
   selector: selector.popupPreviewCardImage,
@@ -111,14 +113,15 @@ const modalPreviewCardImage = new PopupWithImage({
 
 const modalChangeAvatar = new PopupWithForm<AvatarFormValues>({
   selector: selector.popupChangeAvatar,
-  handleSendForm: async (formData) => {
-    return api.setMyAvatar({ avatar: formData.avatar })
-    .then((userDataUpdated) => {
+  handleSendForm: (formData: AvatarFormValues): Promise<void> => {
+    return avatarFormValidator.validateImageUrl("avatar", formData.avatar)
+    .then(() => api.setMyAvatar({ avatar: formData.avatar }))
+    .then((userDataUpdated: userDataApi) => {
       profileInfo.setUserAvatar(userDataUpdated.avatar);
     });
   },
 });
-new FormValidator(confObject, modalChangeAvatar.getForm());
+const avatarFormValidator = new FormValidator(confObject, modalChangeAvatar.getForm());
 
 const modalConfirmation = new PopupWithConfirmation({
   selector: selector.popupConfirmation,
