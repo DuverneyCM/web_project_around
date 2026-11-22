@@ -7,5 +7,4 @@ export const popupAddCards = "#new-card-popup";
 export const popupPreviewCardImage = "#image-popup";
 export const popupConfirmation = "#confirmation-popup";
 export const popupChangeAvatar = "#change-avatar-popup";
-
 export const popupIsOpened = "#image-popup";

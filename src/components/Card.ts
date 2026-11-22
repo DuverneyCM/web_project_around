@@ -43,7 +43,6 @@ export class Card {
     cardClone.dataset.id = this.cardData._id;
     cardClone.dataset.owner = this.cardData.owner;
     cardClone.dataset.createdAt = this.cardData.createdAt;;    
-    //cardClone.dataset.isLiked = this.cardData.isLiked.toString();
 
     if (this.cardData.isLiked) {
       cardLikeButton.classList.add("card__like-button_is-active");

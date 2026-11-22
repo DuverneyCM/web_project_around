@@ -104,7 +104,6 @@ const modalAddCards = new PopupWithForm<CardFormValues>({
   },
 });
 new FormValidator(confObject, modalAddCards.getForm());
-//new Card(formData, selector.cardTemplate, handleCardClick, handleCardDelete).getCard(),
 
 const modalPreviewCardImage = new PopupWithImage({
   selector: selector.popupPreviewCardImage,

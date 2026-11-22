@@ -1,53 +1,14 @@
-export const initialCards = [
-    {
-        name: "Valle de Yosemite",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    },
-    {
-        name: "Lago Louise",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    },
-    {
-        name: "Montañas Calvas",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
-    },
-    {
-        name: "Latemar",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
-    },
-    {
-        name: "Parque Nacional de la Vanoise",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
-    },
-    {
-        name: "Lago di Braies",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
-    },
-];
 export const confObject = {
     popup: ".popup",
     popup_isOpen: "popup_is-opened",
-    input: ".popup__input", //El selector de los campos de entrada (inputs).
-    input_typeError: "popup__input_type_error", //La clase CSS que añade el estilo de error al input.
-    error: ".popup__error", //El selector de los mensajes de error (spans).
-    error_isVisible: "popup__error_visible", //La clase CSS que hace visible el mensaje de error de texto.
-    submit: ".popup__button", //El selector del botón de envío (submit).
-    submit_disabled: ".popup__button:disabled", //La clase CSS que desactiva el botón. //No la uso en este code
+    input: ".popup__input",
+    input_typeError: "popup__input_type_error",
+    error: ".popup__error",
+    error_isVisible: "popup__error_visible",
+    submit: ".popup__button",
+    submit_disabled: ".popup__button:disabled",
 };
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const profileAddButton = document.querySelector(".profile__add-button");
 export const profileImage = document.querySelector(".profile__image");
 export const tokenApi = "ec11ff81-b061-43b7-92de-f505e22826c4";
-/*
-  create new user in server:
-  https://around-api.es.tripleten-services.com/v1/users/create
-  {"user":
-    {
-      "name":"Jacques Cousteau",
-      "about":"Explorador",
-      "avatar":"https://practicum-content.s3.us-west-1.amazonaws.com/frontend-developer/common/avatar.jpg",
-      "_id":"ead0a305f6d63fa7a054dd81"
-    },
-    "token":"ec11ff81-b061-43b7-92de-f505e22826c4"
-  }
-*/

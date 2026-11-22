@@ -19,9 +19,6 @@ export class Api {
     getAllCards() {
         return this.HTTPRequest("/cards", "GET");
     }
-    getAllUsersInfo() {
-        return this.HTTPRequest("/users", "GET");
-    }
     getMyUserInfo() {
         return this.HTTPRequest("/users/me", "GET");
     }

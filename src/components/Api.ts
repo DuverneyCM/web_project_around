@@ -1,6 +1,4 @@
-import type { cardDataApi, userDataApi } from "../types/types.js";
-
-type HttpMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
+import type { cardDataApi, userDataApi, HttpMethod } from "../types/types.js";
 
 export interface apiOptions {
   baseUrl: string;
@@ -31,9 +29,6 @@ export class Api {
   }
   getAllCards(): Promise<cardDataApi[]> {
     return this.HTTPRequest<cardDataApi[]>("/cards", "GET");
-  }
-  getAllUsersInfo(): Promise<userDataApi[]> {
-    return this.HTTPRequest<userDataApi[]>("/users", "GET");
   }
   getMyUserInfo(): Promise<userDataApi> {
     return this.HTTPRequest<userDataApi>("/users/me", "GET");

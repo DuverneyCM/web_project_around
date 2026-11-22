@@ -1,5 +1,9 @@
-export type dictString = Record<string,string>;
 export type selectorPopup = "#edit-popup" | "#new-card-popup" | "#image-popup" | "#confirmation-popup" | "#change-avatar-popup"
+export type HttpMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
+export type FormSubmitHandler<T> = (formValues: T) => void | Promise<void>;
+export type callbackCardImageClick = (cardDataApi:cardDataApi) => void;
+export type callbackSectionRenderer = (cardDataApi:cardDataApi) => HTMLElement;
+export type callbackConfirm = (card: HTMLElement) => void | Promise<void>;
 export interface ProfileFormValues {
   title: string;
   description: string;
@@ -11,11 +15,10 @@ export interface CardFormValues {
 export interface AvatarFormValues {
   avatar: string;
 }
-export type FormSubmitHandler<T> = (formValues: T) => void | Promise<void>;
-export type callbackCardImageClick = (cardDataApi:cardDataApi) => void;
-export type callbackSectionRenderer = (cardDataApi:cardDataApi) => HTMLElement;
-export type callbackConfirm = (card: HTMLElement) => void | Promise<void>;
-
+export type ProfileInfoField = {
+  selector: string;
+  property: keyof ProfileFormValues;
+};
 
 export interface cardDataApi {
   _id: string;
@@ -31,6 +34,3 @@ export interface userDataApi {
   about: string;
   avatar: string;
 };
-
-
-export type cardData = Pick<cardDataApi, "name" | "link">;

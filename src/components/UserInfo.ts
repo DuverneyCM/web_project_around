@@ -1,10 +1,5 @@
-import type { ProfileFormValues, userDataApi } from "../types/types.js";
+import type { ProfileFormValues, ProfileInfoField, userDataApi } from "../types/types.js";
 import { profileImage } from "../utils/selectors.js";
-
-type ProfileInfoField = {
-  selector: string;
-  property: keyof ProfileFormValues;
-};
 
 export class UserInfo {
   constructor (private fields: ProfileInfoField[], initialData: userDataApi) {
