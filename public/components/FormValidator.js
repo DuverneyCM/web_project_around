@@ -46,16 +46,37 @@ export class FormValidator {
         const input = Array.from(this.inputList).find((field) => field.name === inputName);
         if (!input)
             throw new Error(`No se encontró el campo ${inputName}.`);
-        const isValidImage = await new Promise((resolve) => {
-            const image = new Image();
-            image.onload = () => resolve(image.naturalWidth > 0 && image.naturalHeight > 0);
-            image.onerror = () => resolve(false);
-            image.src = url;
-        });
-        if (!isValidImage) {
-            const errorMessage = "El enlace no carga una imagen válida.";
-            this.showInputError(input, errorMessage);
-            throw new Error(errorMessage);
+        const errorMessage1 = "No es un enlace http/https válido.";
+        const errorMessage2 = "El enlace no carga una imagen válida.";
+        try {
+            const parsedUrl = new URL(url);
+            if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+                throw new Error(errorMessage1);
+            }
+        }
+        catch {
+            this.showInputError(input, errorMessage1);
+            throw new Error(errorMessage1);
+        }
+        try {
+            await new Promise((resolve, reject) => {
+                const image = new Image();
+                image.onload = () => {
+                    if (image.naturalWidth > 0 && image.naturalHeight > 0) {
+                        resolve();
+                    }
+                    else {
+                        reject(new Error(errorMessage2));
+                    }
+                };
+                image.onerror = () => reject(new Error(errorMessage2));
+                image.onabort = () => reject(new Error(errorMessage2));
+                image.src = url;
+            });
+        }
+        catch {
+            this.showInputError(input, errorMessage2);
+            throw new Error(errorMessage2);
         }
         this.hideInputError(input);
     }
