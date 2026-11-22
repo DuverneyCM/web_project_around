@@ -101,6 +101,7 @@ const modalChangeAvatar = new PopupWithForm({
         });
     },
 });
+new FormValidator(confObject, modalChangeAvatar.getForm());
 const modalConfirmation = new PopupWithConfirmation({
     selector: selector.popupConfirmation,
     handleConfirm: async (card) => {

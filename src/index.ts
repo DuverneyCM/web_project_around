@@ -113,12 +113,13 @@ const modalPreviewCardImage = new PopupWithImage({
 const modalChangeAvatar = new PopupWithForm<AvatarFormValues>({
   selector: selector.popupChangeAvatar,
   handleSendForm: async (formData) => {
-  return api.setMyAvatar({ avatar: formData.avatar })
-  .then((userDataUpdated) => {
-    profileInfo.setUserAvatar(userDataUpdated.avatar);
-  });
-},
+    return api.setMyAvatar({ avatar: formData.avatar })
+    .then((userDataUpdated) => {
+      profileInfo.setUserAvatar(userDataUpdated.avatar);
+    });
+  },
 });
+new FormValidator(confObject, modalChangeAvatar.getForm());
 
 const modalConfirmation = new PopupWithConfirmation({
   selector: selector.popupConfirmation,
