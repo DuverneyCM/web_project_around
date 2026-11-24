@@ -1,7 +1,3 @@
-/**
- * @class used to validate form inputs. popup is optional, so can be used to validate forms without popup
- * @public
- */
 export class FormValidator {
   private popup?: HTMLDivElement;
   private inputList: NodeListOf<HTMLInputElement>

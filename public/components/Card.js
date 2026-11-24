@@ -1,7 +1,3 @@
-/**
- * @class used to render the cards. Add buttons to like and delete each card, and uses a callback to manage click events on the card image
- * @public
- */
 export class Card {
     cardData;
     cardTemplate;

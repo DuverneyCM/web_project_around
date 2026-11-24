@@ -1,19 +1,11 @@
 import { Popup } from "./Popup.js";
 import type { selectorPopup, FormSubmitHandler } from "../types/types.js";
 
-/**
- * @class used to represent modals that contain forms, which could requiere validate and submit data
- * @public
- */
 export class PopupWithForm<T> extends Popup {
   form:HTMLFormElement;
   private inputList!: NodeListOf<HTMLInputElement>;
   sendForm: FormSubmitHandler<T>;
-  /**
-   * Create a new instance of PopupWithForm to manage modals with forms
-   * @param selector - only accept a selector id (e.g. "#selector") listed in selectorPopup type
-   * @param handleSendForm - callback function used to process collected form data when submit
-   */
+  
   constructor ({selector, handleSendForm}:{selector:selectorPopup, handleSendForm:FormSubmitHandler<T>}) {
     super(selector);
     this.form = this.modal.querySelector(".popup__form") as HTMLFormElement;
